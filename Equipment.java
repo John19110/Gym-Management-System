@@ -4,9 +4,9 @@ package gym;
 public class Equipment
 
  {
-        private String name,code;
+       public String name,code;
 
-        private int quantity;
+        public int quantity;
 public Equipment(String name, String code, int quantity) {
         this.name = name;
         this.code = code;
@@ -22,7 +22,7 @@ public String getCode() {
 public int getQuantity() {
     return quantity;
 }
-public void setName(String name) {
+public void setEquepmentName(String name) {
     this.name = name;
 }
 public void setCode(String code) {

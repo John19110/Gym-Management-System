@@ -2,12 +2,11 @@ package gym;
 
 public abstract  class Person {
     protected int ID;
-    protected int PhoneNumber;
-    protected String Name, Address, Gender, Email;
+    protected String Name, Address, Gender, Email,PhoneNumber;
     
-    public Person(int iD, int phoneNumber, String name, String address, String gender, String email) {
+    public Person(int iD, String PhoneNumber, String name, String address, String gender, String email) {
         ID = iD;
-        PhoneNumber = phoneNumber;
+        this.PhoneNumber = PhoneNumber;
         Name = name;
         Address = address;
         Gender = gender;
@@ -22,11 +21,11 @@ public abstract  class Person {
         ID = iD;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return PhoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void SetPhoneNumber(String phoneNumber) {
         PhoneNumber = phoneNumber;
     }
 

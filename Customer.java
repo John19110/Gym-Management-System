@@ -3,22 +3,24 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Customer extends Person
 {
 
     private String Subscription;
     private List<InBody>InBodies;
+    private Coach assignedCoach;
 
    
    
 
-    public Customer(int iD, int phoneNumber, String name, String address, String gender, String email,
-            String subscription) {
-        super(iD, phoneNumber, name, address, gender, email);
+   
+
+    public Customer(int iD, String PhoneNumber, String name, String address, String gender, String email,
+            String subscription, List<InBody> inBodies, Coach assignedCoach) {
+        super(iD, PhoneNumber, name, address, gender, email);
         Subscription = subscription;
-      this.InBodies= new ArrayList<>();
-           
+        InBodies = inBodies;
+        this.assignedCoach = assignedCoach;
     }
 
     public int getID() {
@@ -30,13 +32,13 @@ public class Customer extends Person
     }
 
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return PhoneNumber;
     }
 
 
-    public void setPhoneNumber(int phoneNumber) {
-        PhoneNumber = phoneNumber;
+    public void setPhoneNumber(String PhoneNumber) {
+        this.PhoneNumber = PhoneNumber;
     }
 
 
@@ -90,16 +92,6 @@ public class Customer extends Person
     }
 
     
-
-    public static void displayEquipment(Equipment equipment) 
-        {for (int i=0;i<equipments.size();i++)
-
-        System.out.println("Equipment Name: " + equipment.getName());
-        System.out.println("Equipment Code: " + equipment.getCode());
-        System.out.println("Equipment Quantity: " + equipment.getQuantity());
-    
-        }
- 
     public void displayInbodyInformation(Date date) 
         {
             for (int i = 0; i < InBodies.size(); i++)
@@ -112,11 +104,13 @@ public class Customer extends Person
                     System.out.println("The Protein : " + InBodies.get(i).getProtein());
                     System.out.println("The Total body water : " + InBodies.get(i).getTotal_Body_Water());
                     System.out.println("The body fat mass : " + InBodies.get(i).getBody_Fat_Mass());
-                    System.out.println("The total weight : " + InBodies.get(i).getTotal_Weight());
-                    
-                    
+                    System.out.println("The total weight : " + InBodies.get(i).getTotal_Weight());      
              }
             }
         }
+        void displayCoahInfo()
+        {
+            
+        };
         
 }

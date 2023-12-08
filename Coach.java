@@ -1,4 +1,4 @@
-package Gym;
+package gym;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,35 +7,14 @@ class Coach extends Person {
     protected int maxCustomers =10 ;
     protected List<Customer> customers;
     // constructor
-    public Coach(int iD, int phoneNumber, String name, String address, String gender, String email, int workinghours) {
-        super(iD, phoneNumber, name, address, gender, email);
-        WorkingHours=workinghours;
-        this. customers =new ArrayList<>();
-    }
+  
 // getters and setters
-    public int getWorkingHours() {
-        return WorkingHours;
-    }
-
-    public void setWorkingHours(int workingHours) {
-        WorkingHours = workingHours;
-    }
-
-    public int getMaxCustomer() {
-        return maxCustomers;
-    }
-
-    public void setMaxCustomer(int maxCustomer) {
-        this.maxCustomers = maxCustomer;
-    }
-    public List<Customer> getCustomers() {
-        return customers;
-
-    }
+    
     // methods
-    public List<InBody> getInBodyHistory(Customer customer) {
-        return customer.;
-    }
+    // public List<InBody> getInBodyHistory(Customer customer) {
+    //     return customer;
+    // }
+    
 
     public Customer getCustomerByName(String customerName) {
         for (Customer customer : customers) {
@@ -45,6 +24,37 @@ class Coach extends Person {
         }
         return null;
     }
+    public Coach(int iD, String PhoneNumber, String name, String address, String gender, String email, int workingHours,
+            int maxCustomers, List<Customer> customers) {
+        super(iD, PhoneNumber, name, address, gender, email);
+        WorkingHours = workingHours;
+        this.maxCustomers = maxCustomers;
+        this.customers = customers;
+    }
+    public int getWorkingHours() {
+        return WorkingHours;
+    }
+
+    public void setWorkingHours(int workingHours) {
+        WorkingHours = workingHours;
+    }
+
+    public int getMaxCustomers() {
+        return maxCustomers;
+    }
+
+    public void setMaxCustomers(int maxCustomers) {
+        this.maxCustomers = maxCustomers;
+    }
+
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
+    }
+
     public List<Customer> getCustomersByGender(String targetGender) {
         List<Customer> result = new ArrayList<>();
         for (Customer customer : customers) {
