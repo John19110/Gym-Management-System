@@ -1,6 +1,5 @@
 package gym;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Customer extends Person
@@ -9,89 +8,158 @@ public class Customer extends Person
     private String Subscription;
     private List<InBody>InBodies;
     private Coach assignedCoach;
-
-   
-   
-
-   
-
-    public Customer(int iD, String PhoneNumber, String name, String address, String gender, String email,
-            String subscription, List<InBody> inBodies, Coach assignedCoach) {
-        super(iD, PhoneNumber, name, address, gender, email);
+    private Membership membership;
+    
+    public Customer(int iD, String name, String address, String gender, String email, String phoneNumber,
+            String subscription, List<InBody> inBodies, Coach assignedCoach, Membership membership) {
+        super(iD, name, address, gender, email, phoneNumber);
         Subscription = subscription;
         InBodies = inBodies;
         this.assignedCoach = assignedCoach;
+        this.membership = membership;
     }
 
-    public int getID() {
+    public int getID()
+     {
         return ID;
     }
 
-    public void setID(int iD) {
+    public void setID(int iD) 
+    {
         ID = iD;
     }
 
 
-    public String getPhoneNumber() {
+    public String getPhoneNumber() 
+    {
         return PhoneNumber;
     }
 
 
-    public void setPhoneNumber(String PhoneNumber) {
+    public void setPhoneNumber(String PhoneNumber) 
+    {
         this.PhoneNumber = PhoneNumber;
     }
 
 
-    public String getName() {
+    public String getName()
+     {
         return Name;
     }
 
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         Name = name;
     }
 
 
-    public String getAddress() {
+    public String getAddress() 
+    {
         return Address;
     }
 
 
-    public void setAddress(String address) {
+    public void setAddress(String address) 
+    {
         Address = address;
     }
 
 
-    public String getGender() {
+    public String getGender() 
+    {
         return Gender;
     }
 
 
-    public void setGender(String gender) {
+    public void setGender(String gender) 
+    {
         Gender = gender;
     }
 
 
-    public String getEmail() {
+    public String getEmail() 
+    {
         return Email;
     }
 
 
-    public void setEmail(String email) {
+    public void setEmail(String email)
+    {
         Email = email;
     }
 
-
-    public String getSubscription() {
+    
+    public String getSubscription() 
+    {
         return Subscription;
     }
-
-
-    public void setSubscription(String subscription) {
-        Subscription = subscription;
+    
+    public Membership getMembership() 
+    {
+        return membership;
     }
 
+    public void setMembership(Membership membership) 
+    {
+        this.membership = membership;
+    }
     
+    
+    public List<InBody> getInBodies() 
+    {
+        return InBodies;
+    }
+
+    public void setInBodies(List<InBody> inBodies) 
+    {
+        InBodies = inBodies;
+    }
+
+    public Coach getAssignedCoach() 
+    {
+        return assignedCoach;
+    }
+
+    public void setAssignedCoach(Coach assignedCoach) 
+    {
+        this.assignedCoach = assignedCoach;
+    }
+
+    public void setSubscription(String subscription) 
+    {
+        Subscription = subscription;
+    }
+    
+    public void displayCoahInfo()
+       {
+           System.out.println("The coach name is "+assignedCoach.getName());
+           System.out.println("The phone number is "+assignedCoach.getPhoneNumber());
+           System.out.println("The coach working hours is "+assignedCoach.getWorkingHours());
+       
+       }
+    
+
+       public  void displayEquipments()
+
+       {
+           for (Equipment equipment:Gym.getEquipments())
+           {
+               System.out.println("Equipment Name: " + equipment.getName());
+               System.out.println("Equipment Code: " + equipment.getCode());
+               System.out.println("Equipment Quantity: " + equipment.getQuantity());
+               
+           }
+       }
+
+    public void displayMembershiPDetails()
+    {
+
+            System.out.println("The start date is : "+membership.getStartDate());
+            System.out.println("The number of registered monthes is  : "+membership.getNumMonthsRegistered());
+            System.out.println("The price is : "+membership.getPrice());
+            System.out.println("The monthly plan is : "+membership.getMonthlyPlan());
+    }
     public void displayInbodyInformation(Date date) 
         {
             for (int i = 0; i < InBodies.size(); i++)
@@ -106,11 +174,23 @@ public class Customer extends Person
                     System.out.println("The body fat mass : " + InBodies.get(i).getBody_Fat_Mass());
                     System.out.println("The total weight : " + InBodies.get(i).getTotal_Weight());      
              }
+
             }
+
         }
-        void displayCoahInfo()
-        {
-            
-        };
+    public void DesplayHowManyKilosNeededToReduce()
+    { 
         
+        double leanBodyMass = InBodies.get(InBodies.size()).getTotal_Weight() - InBodies.get(InBodies.size()). getBody_Fat_Mass();
+
+        // Step 3: Calculate estimated healthy weight (lean body mass + protein)
+        double estimatedHealthyWeight = leanBodyMass + InBodies.get(InBodies.size()).getProtein();
+
+        // Step 4: Calculate excess weight
+        double excessWeight = InBodies.get(InBodies.size()).getTotal_Weight() - estimatedHealthyWeight;
+
+        System.out.println( "you need to reduce  "  + excessWeight+" kilos ." );
+    }
+
+
 }

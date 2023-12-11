@@ -4,16 +4,21 @@ public abstract  class Person {
     protected int ID;
     protected String Name, Address, Gender, Email,PhoneNumber;
     
-    public Person(int iD, String PhoneNumber, String name, String address, String gender, String email) {
+ 
+
+    
+
+    public Person(int iD, String name, String address, String gender, String email, String phoneNumber) {
         ID = iD;
-        this.PhoneNumber = PhoneNumber;
         Name = name;
         Address = address;
         Gender = gender;
         Email = email;
+        PhoneNumber = phoneNumber;
     }
 
     public int getID() {
+        
         return ID;
     }
 
