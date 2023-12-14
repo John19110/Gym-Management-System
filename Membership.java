@@ -1,21 +1,28 @@
-package Gym;
+package Mygym;
 import java.util.Date;
 
-class MembershipPlan {
+class Membership
+ 
+{
+
     protected Date StartDate;
-    //3 days per week or 6 days per week
+    protected Date endDate;
     protected String MonthlyPlan;
     protected int NumMonthsRegistered;
-    protected double Price;
-    protected double discount;
+    protected int Price;
 
+ 
 
-    public MembershipPlan(Date startdate, String monthly_plan, int numMonthsRegistered, double price) {
-        StartDate = startdate;
-        MonthlyPlan = monthly_plan;
+    public Membership(Date startDate, Date endDate, String monthlyPlan, int numMonthsRegistered, int  price) {
+        StartDate = startDate;
+        this.endDate = endDate;
+        MonthlyPlan = monthlyPlan;
         NumMonthsRegistered = numMonthsRegistered;
         Price = price;
-    }
+    } 
+    
+
+
 
     public Date getStartDate() {
         return StartDate;
@@ -41,18 +48,22 @@ class MembershipPlan {
         NumMonthsRegistered = numMonthsRegistered;
     }
 
-    public double getPrice() {
+    public double getPrice() 
+    {
         return Price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         Price = price;
     }
-    public double calculateTotalPrice() {
-        double totalPrice = Price * NumMonthsRegistered;
-        if (NumMonthsRegistered >= 3) {
-            totalPrice =totalPrice - (totalPrice * (discount / 100.0));
-        }
-        return totalPrice;
+
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 }

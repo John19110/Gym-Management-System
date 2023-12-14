@@ -1,13 +1,14 @@
-package gym;
+package Mygym;
 
 
 public class Equipment
 
  {
-       public String name,code;
+       public int code;
+       public String name;
 
         public int quantity;
-public Equipment(String name, String code, int quantity) {
+public Equipment(String name, int code, int quantity) {
         this.name = name;
         this.code = code;
         this.quantity = quantity;
@@ -16,7 +17,7 @@ public Equipment(String name, String code, int quantity) {
 public String getName() {
     return name;
 }
-public String getCode() {
+public int getCode() {
     return code;
 }
 public int getQuantity() {
@@ -25,7 +26,7 @@ public int getQuantity() {
 public void setEquepmentName(String name) {
     this.name = name;
 }
-public void setCode(String code) {
+public void setCode(int code) {
     this.code = code;
 }
 public void setQuantity(int quantity) {

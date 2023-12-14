@@ -1,6 +1,6 @@
-package gym;
+package Mygym;
 
-public abstract  class Person {
+public   class Person {
     protected int ID;
     protected String Name, Address, Gender, Email,PhoneNumber;
     
@@ -65,6 +65,13 @@ public abstract  class Person {
     public void setEmail(String email) {
         Email = email;
     }
-    
+
+    public   void Login(){
+        System.out.println("int d");
+    };
+    public  void  Myfun()
+    {
+        System.out.println("I'm person");
+    };
     
 }

@@ -1,17 +1,23 @@
-package Gym;
+package Mygym;
+import java.util.Date;
 
 class Subscription {
     protected int CustomerId;
     protected int CoachId;
-    protected MembershipPlan membershipPlan;
+    protected Membership membership;
+    protected  Date DateOfSubescription;
 
-    public Subscription(int customerid, int coachid, MembershipPlan membershipPlan) {
-        CustomerId = customerid;
-        CoachId = coachid;
-        membershipPlan = membershipPlan;
+    
+
+    public Subscription(int customerId, int coachId, Membership membership, Date dateOfSubescription) {
+        CustomerId = customerId;
+        CoachId = coachId;
+        this.membership = membership;
+        DateOfSubescription = dateOfSubescription;
     }
 
-    public int getCustomerId() {
+    public int getCustomerId()
+    {
         return CustomerId;
     }
 
@@ -27,11 +33,19 @@ class Subscription {
         CoachId = coachId;
     }
 
-    public MembershipPlan getMembershipPlan() {
-        return membershipPlan;
+    public Membership getMembership() {
+        return membership;
     }
 
-    public void setMembershipPlan(MembershipPlan membershipPlan) {
-        this.membershipPlan = membershipPlan;
+    public void setMembership(Membership membership) {
+        this.membership = membership;
+    }
+
+    public Date getDateOfSubescription() {
+        return DateOfSubescription;
+    }
+
+    public void setDateOfSubescription(Date dateOfSubescription) {
+        DateOfSubescription = dateOfSubescription;
     }
 }

@@ -4,22 +4,27 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main 
 {
+
     Gym gym = new Gym(null, null, null);  
     Admin admin = new Admin(gym);
     public static void main(String[] args) throws FileNotFoundException, NullPointerException
      {
-        Main main=new Main();
+         
+         Main main=new Main();
+         main.read("inputdata.txt");   // reeeeaaaadddddiiiiiinnnnggggg for just one timmmmmeeeeee
+          System.out.println("Welcome in our gym !");
+        System.out.println("________________________");
 
-       main.read("inputdata.txt");
     //    main.write("outputdata.txt");
 
     }
-
 
     public  void read(String filepath) throws FileNotFoundException
      {
@@ -89,11 +94,14 @@ public class Main
                     Membership membership = new Membership(startdate, enddate, monthlyPlan, numMonthsRegistered, pric);
                     InBody inbody = new InBody(CustomerId, Customername, Customeraddress, Customergender, Customeremail, Customerphonenumber,
                             dateofinbody, height, totalWeight, body_Fat_Mass, minerals, total_Body_Water, protein);
-                    Subscription subscription = new Subscription(CustomerId, CoachId, membership, dateofsubescribtion);
-                    Coach coach = new Coach(CoachId, Coachname, Coachaddress, Coachgender,
+
+                            Subscription subscription = new Subscription(CustomerId, CoachId, membership, dateofsubescribtion);
+                            Coach coach = new Coach(CoachId, Coachname, Coachaddress, Coachgender,
                             Coachemail, Coachphonenumber, workinghours, null);
-                    Customer customer = new Customer(CustomerId, Customername, Customeraddress, Customergender, Customeremail,
-                            Customerphonenumber, subscription, null, coach, membership);
+                       List<InBody>inbodies=gym.getCustomers().get(i).getInBodies();
+                       inbodies.add(inbody);
+                            Customer customer = new Customer(CustomerId, Customername, Customeraddress, Customergender, Customeremail,
+                            Customerphonenumber, subscription,inbodies, coach, membership);
                     Equipment equipment = new Equipment(equipmentname, equipmentcode, Equipmentquantity);
 
                     admin.addCustomer(customer);
@@ -106,7 +114,12 @@ public class Main
                 }
             }
 
-          
+            if (!gym.getCustomers().isEmpty()) {
+                System.out.println(gym.getCustomers().get(0).getID());
+                System.out.println(gym.getCustomers().get(0).getName());
+                System.out.println(gym.getCoaches().get(1).getEmail());
+                System.out.println(gym.getCustomers().get(0).getInBodies().get(0).getTotal_Body_Water());
+            }
 
             inputfile.close(); // Close the scanner after reading the file
         }

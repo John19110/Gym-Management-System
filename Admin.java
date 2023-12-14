@@ -1,4 +1,4 @@
-package gym;
+package Mygym;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,8 +13,15 @@ public class Admin
 		
 	}
 	 
-     
-    public void addCustomer(Customer customer)
+     public void addMembership(Membership membership)
+    {
+    gym.getMemberships().add(membership);
+}
+public void addSubscription(Subscription subscription)
+    {
+    gym.getSubscriptions().add(subscription);
+}
+public void addCustomer(Customer customer)
     {
     gym.getCustomers().add(customer);
 }
@@ -72,6 +79,7 @@ public void removeEquipment(Equipment equipment)
 		for (Subscription subscription : gym.getSubscriptions())
          {
 			if(subscription.getCustomerId() == customerId) 
+            
             {
 			System.out.println("Customer : " + subscription.getCustomerId());
 			System.out.println("Coach : " + subscription.getCoachId());
@@ -103,7 +111,7 @@ public void removeEquipment(Equipment equipment)
 
     }
 
-    public void CustomerByGivenmonth(String month,int year ) 
+    public void CustomerByGivenDate(String month,int year ) 
 
     {   
 

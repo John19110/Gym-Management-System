@@ -1,8 +1,9 @@
-package  gym;
+package  Mygym;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Gym 
+
 {
 
     private String name,address,phoneNumber;

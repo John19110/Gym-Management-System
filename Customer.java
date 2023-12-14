@@ -1,17 +1,26 @@
-package gym;
+package Mygym;
 import java.sql.Date;
 import java.util.List;
+import java.io.*;
+
+
 
 public class Customer extends Person
 {
 
-    private String Subscription;
+
+
+
+
+    private Subscription Subscription;
     private List<InBody>InBodies;
     private Coach assignedCoach;
     private Membership membership;
     
+   
+
     public Customer(int iD, String name, String address, String gender, String email, String phoneNumber,
-            String subscription, List<InBody> inBodies, Coach assignedCoach, Membership membership) {
+            Mygym.Subscription subscription, List<InBody> inBodies, Coach assignedCoach, Membership membership) {
         super(iD, name, address, gender, email, phoneNumber);
         Subscription = subscription;
         InBodies = inBodies;
@@ -90,7 +99,7 @@ public class Customer extends Person
     }
 
     
-    public String getSubscription() 
+    public Subscription getSubscription() 
     {
         return Subscription;
     }
@@ -101,6 +110,7 @@ public class Customer extends Person
     }
 
     public void setMembership(Membership membership) 
+    
     {
         this.membership = membership;
     }
@@ -126,10 +136,13 @@ public class Customer extends Person
         this.assignedCoach = assignedCoach;
     }
 
-    public void setSubscription(String subscription) 
+    public void setSubscription(Subscription subscription) 
     {
         Subscription = subscription;
     }
+
+
+
     
     public void displayCoahInfo()
        {
@@ -143,14 +156,25 @@ public class Customer extends Person
        public  void displayEquipments()
 
        {
-           for (Equipment equipment:Gym.getEquipments())
-           {
-               System.out.println("Equipment Name: " + equipment.getName());
-               System.out.println("Equipment Code: " + equipment.getCode());
-               System.out.println("Equipment Quantity: " + equipment.getQuantity());
-               
-           }
-       }
+            try
+{
+    FileWriter CustomerFile=new FileWriter("test.txt");
+    for (Equipment equipment:Gym.getEquipments())
+    {
+        CustomerFile.write("Equipment Name: " + equipment.getName());
+        CustomerFile.write("Equipment Code: " + equipment.getCode());
+        CustomerFile.write("Equipment Quantity: " + equipment.getQuantity());
+        
+        CustomerFile.close();
+    }
+    }
+
+    catch( Exception e)
+    {
+        
+    }
+
+}
 
     public void displayMembershiPDetails()
     {
@@ -161,24 +185,25 @@ public class Customer extends Person
             System.out.println("The monthly plan is : "+membership.getMonthlyPlan());
     }
     public void displayInbodyInformation(Date date) 
+    
         {
-            for (int i = 0; i < InBodies.size(); i++)
+            for (InBody inbody: getInBodies())
              {
-                if (InBodies.get(i).getDate_of_InBody().equals(date))
+                if (inbody.getDate_of_InBody().equals(date))
              {
-                    System.out.println("The date of Inbody : " + InBodies.get(i).getDate_of_InBody());
-                    System.out.println("The Hight: " + InBodies.get(i).getHeight());
-                    System.out.println("The Minerals : " + InBodies.get(i).getMinerals());
-                    System.out.println("The Protein : " + InBodies.get(i).getProtein());
-                    System.out.println("The Total body water : " + InBodies.get(i).getTotal_Body_Water());
-                    System.out.println("The body fat mass : " + InBodies.get(i).getBody_Fat_Mass());
-                    System.out.println("The total weight : " + InBodies.get(i).getTotal_Weight());      
+                    System.out.println("The date of Inbody : " + inbody.getDate_of_InBody());
+                    System.out.println("The Hight: " + inbody.getHeight());
+                    System.out.println("The Minerals : " + inbody.getMinerals());
+                    System.out.println("The Protein : " + inbody.getProtein());
+                    System.out.println("The Total body water : " + inbody.getTotal_Body_Water());
+                    System.out.println("The body fat mass : " + inbody.getBody_Fat_Mass());
+                    System.out.println("The total weight : " + inbody.getTotal_Weight());      
              }
 
             }
 
         }
-    public void DesplayHowManyKilosNeededToReduce()
+    public void DisplayHowManyKilosNeededToReduce()
     { 
         
         double leanBodyMass = InBodies.get(InBodies.size()).getTotal_Weight() - InBodies.get(InBodies.size()). getBody_Fat_Mass();
@@ -191,6 +216,12 @@ public class Customer extends Person
 
         System.out.println( "you need to reduce  "  + excessWeight+" kilos ." );
     }
+    public void Myfun(){
+        System.out.println("I'm customer ");
 
+    }
+    public void suii(){
+        System.out.println("the only customer ");
+    }
 
 }

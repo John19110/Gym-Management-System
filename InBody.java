@@ -1,6 +1,6 @@
-package gym;
+package Mygym;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class InBody extends Person 
 {
@@ -14,7 +14,8 @@ public class InBody extends Person
     
     public InBody(int iD, String name, String address, String gender, String email, String phoneNumber,
             Date date_Of_InBody, double height, double total_Weight, double body_Fat_Mass, double minerals,
-            double total_Body_Water, double protein) {
+            double total_Body_Water, double protein)
+             {
         super(iD, name, address, gender, email, phoneNumber);
         Date_Of_InBody = date_Of_InBody;
         Height = height;
