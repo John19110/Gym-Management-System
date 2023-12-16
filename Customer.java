@@ -214,14 +214,14 @@ public class Customer extends Person
         // Step 4: Calculate excess weight
         double excessWeight = InBodies.get(InBodies.size()).getTotal_Weight() - estimatedHealthyWeight;
 
-        System.out.println( "you need to reduce  "  + excessWeight+" kilos ." );
+        System.out.println( "you need to reduce  "  + excessWeight+" kilos." );
     }
     public void Myfun(){
-        System.out.println("I'm customer ");
+        System.out.println("I'm a customer");
 
     }
     public void suii(){
-        System.out.println("the only customer ");
+        System.out.println("the only customer");
     }
 
 }
