@@ -2,6 +2,7 @@ package Mygym;
 import java.sql.Date;
 import java.util.List;
 import java.io.*;
+import java.util.ArrayList;
 
 
 
@@ -11,7 +12,8 @@ public class Customer extends Person
 
 
 
-
+    private String password;
+    private static List<Customer> registeredCustomers = new ArrayList<>();
     private Subscription Subscription;
     private List<InBody>InBodies;
     private Coach assignedCoach;
@@ -19,13 +21,17 @@ public class Customer extends Person
     
    
 
-    public Customer(int iD, String name, String address, String gender, String email, String phoneNumber,
-            Mygym.Subscription subscription, List<InBody> inBodies, Coach assignedCoach, Membership membership) {
+   public Customer(int iD, String name, String address, String gender, String email, String phoneNumber,
+                    String subscription, Coach assignedCoach, Membership membership, String password)
+    {
+       
         super(iD, name, address, gender, email, phoneNumber);
         Subscription = subscription;
         InBodies = inBodies;
         this.assignedCoach = assignedCoach;
+        this.password = password;
         this.membership = membership;
+        registeredCustomers.add(this);
     }
 
     public int getID()
@@ -222,6 +228,27 @@ public class Customer extends Person
     }
     public void suii(){
         System.out.println("the only customer");
+    }
+
+    public static Customer registerCustomer(int iD, String name, String address, String gender, String email,
+                                            String phoneNumber, String subscription, Coach assignedCoach,
+                                            Membership membership, String password) 
+    {
+        for (Customer existingCustomer : registeredCustomers) {
+            if (existingCustomer.getEmail().equals(email)) {
+                return null; // Registration failed since a user with the same email already exists
+            }
+        }
+        return new Customer(iD, name, address, gender, email, phoneNumber, subscription, assignedCoach, membership, password);
+    }
+    
+    public static Customer CustomerLogin(String email, String password) {
+        for (Customer customer : registeredCustomers) {
+            if (customer.getEmail().equals(email) && customer.getPassword().equals(password)) {
+                return customer; // Login successful
+            }
+        }
+        return null; // Login failed
     }
 
 }
