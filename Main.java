@@ -32,7 +32,7 @@ public class Main
             System.out.println("Welcome to our Gym Management System");
             System.out.println("1. Customer Registration");
             System.out.println("2. Customer Login");
-            System.out.println("3. View Class Schedule");
+            System.out.println("3. Login as Admin");
             System.out.println("4. Book a Class");
             System.out.println("5. Exit");
 
