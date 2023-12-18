@@ -1,45 +1,34 @@
 package Mygym;
-import java.sql.Date;
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import gym.Equipment;
 import gym.InBody;
 import gym.Person;
 
-import java.io.*;
-
-
-
-public class Customer extends Person 
+class Coach extends Person 
 {
+    protected int WorkingHours;
+    protected String password;
 
 
 
-
-
-    private Subscription Subscription;
-    private List<InBody>InBodies;
-    private Coach assignedCoach;
-    private Membership membership;
-    private String password;
-    
-   
-
- 
-
-  
-    public Customer(int iD, String name, String address, String gender, String email, String phoneNumber,
-            Mygym.Subscription subscription, List<InBody> inBodies, Coach assignedCoach, Membership membership,
-            String password) {
+    public Coach(int iD, String name, String address, String gender, String email, String phoneNumber, int workingHours, String password) {
         super(iD, name, address, gender, email, phoneNumber);
-        Subscription = subscription;
-        InBodies = inBodies;
-        this.assignedCoach = assignedCoach;
-        this.membership = membership;
+        WorkingHours = workingHours;
         this.password = password;
     }
+
+    public int getWorkingHours() {
+
+        return WorkingHours;
+    }
+
+    public void setWorkingHours(int workingHours) {
+
+        WorkingHours = workingHours;
+    }
+
     @Override
     public int getID() 
     {
@@ -113,204 +102,119 @@ public class Customer extends Person
       Email=email;
     }
     
-    public Subscription getSubscription() 
-    {
-        return Subscription;
-    }
-    
-    public Membership getMembership() 
-    {
-        return membership;
-    }
-
-    public void setMembership(Membership membership) 
-    
-    {
-        this.membership = membership;
-    }
-    
-    
-    public List<InBody> getInBodies() 
-    {
-        return InBodies;
-    }
-
-    public void setInBodies(List<InBody> inBodies) 
-    {
-        InBodies = inBodies;
-    }
-
-    public Coach getAssignedCoach() 
-    {
-        return assignedCoach;
-    }
-
-    public void setAssignedCoach(Coach assignedCoach) 
-    {
-        this.assignedCoach = assignedCoach;
-    }
-
-    public void setSubscription(Subscription subscription) 
-    {
-        Subscription = subscription;
-    }
-    
     public String getPassword() {
         return password;
     }
-    
+
     public void setPassword(String password) {
         this.password = password;
     }
 
+    public void ListAllCustomers(int CoachId) {
+            System.out.println("Coach " + this.getName() + "Has customers : ");
+            for (Customer customer : Gym.getCustomers()) {
+                        if(CoachId==customer.getAssignedCoach().getID())
+                        {
+                    System.out.println("Customer ID: " + customer.getID());
+                    System.out.println("Customer Name: " + customer.getName());
+                    System.out.println("Customer Gender: " + customer.getGender());
+                    System.out.println("Customer Address: " + customer.getAddress());
+                    System.out.println("Customer Phone Number: " + customer.getPhoneNumber());
+                    System.out.println("Customer Email: " + customer.getEmail());
+                }
+            }
+        }
+    public List<InBody> getInBodyHistory(int CustomerId) 
+    {
+        for (Customer customer : Gym.getCustomers()) 
+        {
+            if(CustomerId==customer.getID())
+            {
+                return customer.getInBodies();
+            }
 
-    
-    public void displayCoahInfo()
-       {
-           System.out.println("The coach name is "+assignedCoach.getName());
-           System.out.println("The phone number is "+assignedCoach.getPhoneNumber());
-           System.out.println("The coach working hours is "+assignedCoach.getWorkingHours());
-       
-       }
-    
+        }
+        return null;
+    }
+    public Customer getCustomerByName(String customerName) {
+        for (Customer customer : Gym.getCustomers()) {
+            if (customer.getName().equals(customerName)) {
+                return customer;
+            }
+        }
+        return null;
+    }
 
-       public  void displayEquipments()
-
-       {
-            try
+    public List<Customer> getCustomersByGender(String targetGender) 
+    {
+        List<Customer> result = new ArrayList<>();
+        for (Customer customer : Gym.getCustomers()) {
+            if (customer.getGender().equalsIgnoreCase(targetGender)) {
+                result.add(customer);
+            }
+        }
+        return result;
+    }
+    public static Coach registerCoach(int iD, String name, String address, String gender, String email,
+    String phoneNumber ,int workingHours,List<Customer>customers , String password )
 {
-    FileWriter CustomerFile=new FileWriter("test.txt");
-    for (Equipment equipment:Gym.getEquipments())
-    {
-        CustomerFile.write("Equipment Name: " + equipment.getName());
-        CustomerFile.write("Equipment Code: " + equipment.getCode());
-        CustomerFile.write("Equipment Quantity: " + equipment.getQuantity());
-        
-        CustomerFile.close();
-    }
-    }
 
-    catch( Exception e)
-    {
-        
-    }
+for (Coach coach : Gym.getCoaches())
+
+{
+if (coach.getEmail().equals(email))
+{
+return null; // Registration failed since a user with the same email already exists
+}
+
+}
+return new Coach(iD, name, address, gender, email, phoneNumber, workingHours, password);
+
 
 }
 
+public static  Coach LoginCoach(String email, String password) {
+for (Coach coach :Gym.getCoaches()) 
+{
+if (coach.getEmail().equals(email) && coach.getPassword().equals(password)) {
+return coach; // Login successful
+}
+}
+return null; // Login failed
+}
+@Override
 
-    public void displayMembershiPDetails()
-    {
+public String toString() {
+    return "Coach ID: " + getID() +
+           "\nName: " + getName() +
+           "\nAddress: " + getAddress() +
+           "\nGender: " + getGender() +
+           "\nEmail: " + getEmail() +
+           "\nPhone Number: " + getPhoneNumber() +
+           "\nWorking Hours: " + getWorkingHours();
+}
+public static Coach getCoachDetails(Scanner scanner) {
+    System.out.println("Enter coach name: ");
+    String coachName = scanner.nextLine();
 
-            System.out.println("The start date is : "+membership.getStartDate());
-            System.out.println("The number of registered monthes is  : "+membership.getNumMonthsRegistered());
-            System.out.println("The price is : "+membership.getPrice());
-            System.out.println("The monthly plan is : "+membership.getMonthlyPlan());
+    Coach coach = findCoachByName(coachName);
+
+    if (coach != null) {
+        System.out.println("Coach found and has been assigned as your coach, your coach's name is : " + coach.getName());
+        return coach;
+    } else {
+        System.out.println("Coach not found.");
+        return null;
     }
-    public void displayInbodyInformation(LocalDateDate date) 
-    
-        {
-            for (InBody inbody: getInBodies())
-             {
-                if (inbody.getDateOfInBody().equals(date))
-             {
-                    System.out.println("The date of Inbody : " + inbody.getDateOfInBody());
-                    System.out.println("The Hight: " + inbody.getHeight());
-                    System.out.println("The Minerals : " + inbody.getMinerals());
-                    System.out.println("The Protein : " + inbody.getProtein());
-                    System.out.println("The Total body water : " + inbody.getTotalBodyWater());
-                    System.out.println("The body fat mass : " + inbody.getBodyFatMass());
-                    System.out.println("The total weight : " + inbody.getTotalWeight());      
-             }
+}
 
-            }
-
+public static Coach findCoachByName(String coachName) {
+    for (Coach coach : Gym.getCoaches()) {
+        if (coach.getName().equalsIgnoreCase(coachName)) {
+            return coach;
         }
-    public void DisplayHowManyKilosNeededToReduce()
-    { 
-        
-        double leanBodyMass = InBodies.get(InBodies.size()).getTotalWeight() - InBodies.get(InBodies.size()). getBodyFatMass();
-
-    
-        double estimatedHealthyWeight = leanBodyMass + InBodies.get(InBodies.size()).getProtein();
-
-        
-        double excessWeight = InBodies.get(InBodies.size()).getTotalWeight() - estimatedHealthyWeight;
-
-        System.out.println( "you need to reduce  "  + excessWeight+" kilos." );
     }
-    public void Myfun(){
-        System.out.println("I'm customer ");
-
-    }
-    public void suii(){
-        System.out.println("the only customer ");
-    }
-    public static Customer register(int iD, String name, String address, String gender, String email,
-                                            String phoneNumber,Subscription subscription,Coach assignedCoach,
-                                            Membership membership, String password )
-    {
-        for (Customer customer : Gym.getCustomers())
-         {
-            if (customer.getEmail().equals(email))
-             {
-                return null; // Registration failed since a user with the same email already exists
-            }
-        }
-        return new Customer(iD, name, address, gender, email, phoneNumber,
-         subscription, null, assignedCoach, membership, password);
-    }
-    
-    
-    public  static Customer  LoginCustomer(String email, String password)
-     {
-        for (Customer customer :Gym.getCustomers()) 
-        {
-            if (customer.getEmail().equals(email) && customer.getPassword().equals(password)) {
-                return customer; // Login successful
-            }
-        }
-        return null; // Login failed
-    }
-
-  
-    @Override
-    public String toString()
-     {
-        StringBuilder sb = new StringBuilder();
-    
-        sb.append(super.toString()); // Include Person details
-        sb.append("Password: ").append(password).append("\n");
-    
-        if (Subscription != null) {
-            sb.append("Subscription: ").append(Subscription.toString()).append("\n");
-        } else {
-            sb.append("Subscription: null\n");
-        }
-    
-        if (InBodies != null) {
-            sb.append("InBodies:\n");
-            for (InBody inBody : InBodies) {
-                sb.append(inBody.toString()).append("\n");
-            }
-        } else {
-            sb.append("InBodies: null\n");
-        }
-    
-        if (assignedCoach != null) {
-            sb.append("Assigned Coach: ").append(assignedCoach.getName()).append("\n");
-        } else {
-            sb.append("Assigned Coach: null\n");
-        }
-    
-        if (membership != null) {
-            sb.append("Membership: ").append(membership.toString()).append("\n");
-        } else {
-            sb.append("Membership: null\n");
-        }
-    
-        return sb.toString();
-    }
-
-    
+    return null;
+}
 
 }
