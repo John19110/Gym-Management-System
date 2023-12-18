@@ -59,6 +59,7 @@ public class Membership {
     public void setPrice(int price) {
         this.price = price;
     }
+    @Override
     public String toString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return "Membership{" + "\n" +

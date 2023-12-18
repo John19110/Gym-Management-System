@@ -1,15 +1,11 @@
 package Mygym;
 
 
-public   class Person 
+public abstract   class Person 
 {
     protected int ID;
     protected String Name, Address, Gender, Email,PhoneNumber;
     
- 
-
-    
-
     public Person(int iD, String name, String address, String gender, String email, String phoneNumber) {
         ID = iD;
         Name = name;
@@ -19,57 +15,27 @@ public   class Person
         PhoneNumber = phoneNumber;
     }
 
-    public int getID() {
-        
-        return ID;
-    }
+    public  abstract int getID();
 
-    public void setID(int iD) {
-        ID = iD;
-    }
+    public  abstract void setID(int iD);
 
-    public String getPhoneNumber() {
-        return PhoneNumber;
-    }
+    public abstract String getPhoneNumber();
 
-    public void SetPhoneNumber(String phoneNumber) {
-        PhoneNumber = phoneNumber;
-    }
+    public abstract void SetPhoneNumber(String phoneNumber);
 
-    public String getName() {
-        return Name;
-    }
+    public abstract String getName();
 
-    public void setName(String name) {
-        Name = name;
-    }
+    public abstract void setName(String name);
 
-    public String getAddress() {
-        return Address;
-    }
+    public abstract String getAddress();
 
-    public void setAddress(String address) {
-        Address = address;
-    }
+    public abstract  void setAddress(String address);
 
-    public String getGender() {
-        return Gender;
-    }
+    public abstract String getGender();
 
-    public void setGender(String gender) {
-        Gender = gender;
-    }
+    public  abstract void setGender(String gender);
 
-    public String getEmail() {
-        return Email;
-    }
+    public abstract String getEmail();
 
-    public void setEmail(String email) {
-        Email = email;
-    }
-
-
-   
-    
-    
+    public abstract void setEmail(String email);    
 }

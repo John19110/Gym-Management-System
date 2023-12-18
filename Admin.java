@@ -55,7 +55,7 @@ public void removeEquipment(Equipment equipment)
     public void editCustomer(Customer customer, String newName, String newPhoneNumber) 
     {
         customer.setName(newName);
-        customer.setPhoneNumber(newPhoneNumber);
+        customer.SetPhoneNumber(newPhoneNumber);
        
     }
     public void editEquipment(Gym gym, Equipment equipment, String newEquipmentName, int newQuantity) 

@@ -35,7 +35,7 @@ public class Main
     }
 
     
-    public  void read(String filepath) throws FileNotFoundException
+public  void read(String filepath) throws FileNotFoundException
      {
 
         File file = new File(filepath);
@@ -106,16 +106,14 @@ public class Main
                     InBody inbody = new InBody(CustomerId, Customername, Customeraddress, Customergender, Customeremail, Customerphonenumber,
                             dateofinbody, height, totalWeight, body_Fat_Mass, minerals, total_Body_Water, protein);
                      ArrayList<InBody> inBodyList = new ArrayList<>();
-                     inBodyList.add(inbody);
-                        ArrayList<Customer> customers = new ArrayList<>();
-                        
+                     inBodyList.add(inbody);                        
                         Subscription subscription = new Subscription(CustomerId, CoachId, membership, dateofsubescribtion);
                         Equipment equipment = new Equipment(equipmentname, equipmentcode, Equipmentquantity);
-                        Customer customer = new Customer(CustomerId, Customername, Customeraddress, Customergender, Customeremail,
-                        Customerphonenumber, subscription,inBodyList, null, membership,Customerpassword);
-                        customers.add(customer);
+                        
                         Coach coach = new Coach(CoachId, Coachname, Coachaddress, Coachgender,
-                        Coachemail, Coachphonenumber, workinghours, customers,Coachpassword);
+                        Coachemail, Coachphonenumber, workinghours,Coachpassword);
+                        Customer customer = new Customer(CustomerId, Customername, Customeraddress, Customergender, Customeremail,
+                        Customerphonenumber, subscription,inBodyList, coach, membership,Customerpassword);
                         
                     admin.addCustomer(customer);
                     admin.addCoach(coach);
@@ -136,7 +134,7 @@ public class Main
 
    
     
-    private  <T> void write(String string, String filePath)
+private  <T> void write(String string, String filePath)
      {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) 
         {

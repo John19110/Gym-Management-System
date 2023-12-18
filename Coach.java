@@ -5,16 +5,13 @@ import java.util.List;
 class Coach extends Person 
 {
     protected int WorkingHours;
-    protected List<Customer> Coachcustomers;
     protected String password;
 
 
 
-    public Coach(int iD, String name, String address, String gender, String email, String phoneNumber, int workingHours,
-            List<Customer> coachcustomers, String password) {
+    public Coach(int iD, String name, String address, String gender, String email, String phoneNumber, int workingHours, String password) {
         super(iD, name, address, gender, email, phoneNumber);
         WorkingHours = workingHours;
-        Coachcustomers = coachcustomers;
         this.password = password;
     }
 
@@ -27,73 +24,91 @@ class Coach extends Person
 
         WorkingHours = workingHours;
     }
-    public List<Customer> getCustomers() {
-        return Coachcustomers;
 
+    @Override
+    public int getID() 
+    {
+            return ID;
     }
-    public int getID() {
-        return ID;
-    }
-
+    
+    @Override
     public void setID(int iD) {
-        ID = iD;
+      
+        ID=iD;
     }
-
-
+    
+    @Override
     public String getPhoneNumber() {
-        return PhoneNumber;
+
+            return PhoneNumber;
     }
+    
+    @Override
+    public void SetPhoneNumber(String phoneNumber)
+     {
 
-
-    public void setPhoneNumber(String PhoneNumber) {
-        this.PhoneNumber = PhoneNumber;
+        PhoneNumber=phoneNumber;
     }
-
-
-    public String getName() {
+    
+    @Override
+    public String getName() 
+    {
+        
         return Name;
     }
+    
+    @Override
+    public void setName(String name) 
+    {
+    Name=name;  
 
-
-    public void setName(String name) {
-        Name = name;
     }
-
-
-    public String getAddress() {
-        return Address;
+    
+    @Override
+    public String getAddress() 
+    {
+        return Address;    
     }
-
-
+    
+    @Override
     public void setAddress(String address) {
-        Address = address;
+        
+        Address=address;
     }
-
-
+    
+    @Override
     public String getGender() {
+       
         return Gender;
     }
-
-
-    public void setGender(String gender) {
-        Gender = gender;
+    
+    @Override
+    public void setGender(String gender) 
+    {
+        Gender=gender;
     }
-
-
+    
+    @Override
     public String getEmail() {
         return Email;
     }
-
-
+    
+    @Override
     public void setEmail(String email) {
-        Email = email;
+      Email=email;
+    }
+    
+    public String getPassword() {
+        return password;
     }
 
- 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public void ListAllCustomers(int CoachId) {
             System.out.println("Coach " + this.getName() + "Has customers : ");
-            for (Customer customer : Coachcustomers) {
+            for (Customer customer : Gym.getCustomers()) {
                         if(CoachId==customer.getAssignedCoach().getID())
                         {
                     System.out.println("Customer ID: " + customer.getID());
@@ -107,7 +122,7 @@ class Coach extends Person
         }
     public List<InBody> getInBodyHistory(int CustomerId) 
     {
-        for (Customer customer : Coachcustomers) 
+        for (Customer customer : Gym.getCustomers()) 
         {
             if(CustomerId==customer.getID())
             {
@@ -118,7 +133,7 @@ class Coach extends Person
         return null;
     }
     public Customer getCustomerByName(String customerName) {
-        for (Customer customer : Coachcustomers) {
+        for (Customer customer : Gym.getCustomers()) {
             if (customer.getName().equals(customerName)) {
                 return customer;
             }
@@ -129,14 +144,14 @@ class Coach extends Person
     public List<Customer> getCustomersByGender(String targetGender) 
     {
         List<Customer> result = new ArrayList<>();
-        for (Customer customer : Coachcustomers) {
+        for (Customer customer : Gym.getCustomers()) {
             if (customer.getGender().equalsIgnoreCase(targetGender)) {
                 result.add(customer);
             }
         }
         return result;
     }
-    public static Coach register(int iD, String name, String address, String gender, String email,
+    public static Coach registerCoach(int iD, String name, String address, String gender, String email,
     String phoneNumber ,int workingHours,List<Customer>customers , String password )
 {
 
@@ -149,38 +164,33 @@ return null; // Registration failed since a user with the same email already exi
 }
 
 }
-return new Coach(iD, name, address, gender, email, phoneNumber, iD, null,password);
+return new Coach(iD, name, address, gender, email, phoneNumber, workingHours, password);
 
 
 }
 
-public static Customer Login(String email, String password) {
-for (Customer customer :Gym.getCustomers()) 
+public static  Coach LoginCoach(String email, String password) {
+for (Coach coach :Gym.getCoaches()) 
 {
-if (customer.getEmail().equals(email) && customer.getPassword().equals(password)) {
-return customer; // Login successful
+if (coach.getEmail().equals(email) && coach.getPassword().equals(password)) {
+return coach; // Login successful
 }
 }
 return null; // Login failed
 }
+@Override
+
 public String toString() {
-    StringBuilder sb = new StringBuilder();
-
-    sb.append(super.toString()); // Include Person details
-    sb.append("Working Hours: ").append(WorkingHours).append("\n");
-
-    if (Coachcustomers != null) {
-        sb.append("Coach's Customers:\n");
-        for (Customer customer : Coachcustomers) {
-            sb.append(customer.getName().toString()).append("\n");
-        }
-    } else {
-        sb.append("Coach's Customers: null\n");
-    }
-
-    sb.append("Password: ").append(password).append("\n");
-
-    return sb.toString();
+    return "Coach ID: " + getID() +
+           "\nName: " + getName() +
+           "\nAddress: " + getAddress() +
+           "\nGender: " + getGender() +
+           "\nEmail: " + getEmail() +
+           "\nPhone Number: " + getPhoneNumber() +
+           "\nWorking Hours: " + getWorkingHours();
+    // Add any other relevant information you want to include
 }
+
+
 
 }

@@ -21,6 +21,78 @@ public class InBody extends Person {
         this.totalBodyWater = totalBodyWater;
         this.protein = protein;
     }
+    @Override
+    public int getID() 
+    {
+            return ID;
+    }
+    
+    @Override
+    public void setID(int iD) {
+      
+        ID=iD;
+    }
+    
+    @Override
+    public String getPhoneNumber() {
+
+            return PhoneNumber;
+    }
+    
+    @Override
+    public void SetPhoneNumber(String phoneNumber)
+     {
+
+        PhoneNumber=phoneNumber;
+    }
+    
+    @Override
+    public String getName() 
+    {
+        
+        return Name;
+    }
+    
+    @Override
+    public void setName(String name) 
+    {
+    Name=name;  
+
+    }
+    
+    @Override
+    public String getAddress() 
+    {
+        return Address;    
+    }
+    
+    @Override
+    public void setAddress(String address) {
+        
+        Address=address;
+    }
+    
+    @Override
+    public String getGender() {
+       
+        return Gender;
+    }
+    
+    @Override
+    public void setGender(String gender) 
+    {
+        Gender=gender;
+    }
+    
+    @Override
+    public String getEmail() {
+        return Email;
+    }
+    
+    @Override
+    public void setEmail(String email) {
+      Email=email;
+    }
 
     public void setDateOfInBody(Date dateOfInBody) {
         this.dateOfInBody = dateOfInBody;
@@ -61,6 +133,7 @@ public class InBody extends Person {
     public double getHeight() {
         return height;
     }
+
 
     @Override
     public String toString() {

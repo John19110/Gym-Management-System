@@ -33,77 +33,78 @@ public class Customer extends Person
         this.membership = membership;
         this.password = password;
     }
+    @Override
+    public int getID() 
+    {
+            return ID;
+    }
+    
+    @Override
+    public void setID(int iD) {
+      
+        ID=iD;
+    }
+    
+    @Override
+    public String getPhoneNumber() {
 
-    public int getID()
+            return PhoneNumber;
+    }
+    
+    @Override
+    public void SetPhoneNumber(String phoneNumber)
      {
-        return ID;
-    }
 
-    public void setID(int iD) 
+        PhoneNumber=phoneNumber;
+    }
+    
+    @Override
+    public String getName() 
     {
-        ID = iD;
-    }
-
-
-    public String getPhoneNumber() 
-    {
-        return PhoneNumber;
-    }
-
-
-    public void setPhoneNumber(String PhoneNumber) 
-    {
-        this.PhoneNumber = PhoneNumber;
-    }
-
-
-    public String getName()
-     {
+        
         return Name;
     }
-
-
-    public void setName(String name)
+    
+    @Override
+    public void setName(String name) 
     {
-        Name = name;
+    Name=name;  
+
     }
-
-
+    
+    @Override
     public String getAddress() 
     {
-        return Address;
+        return Address;    
     }
-
-
-    public void setAddress(String address) 
-    {
-        Address = address;
+    
+    @Override
+    public void setAddress(String address) {
+        
+        Address=address;
     }
-
-
-    public String getGender() 
-    {
+    
+    @Override
+    public String getGender() {
+       
         return Gender;
     }
-
-
+    
+    @Override
     public void setGender(String gender) 
     {
-        Gender = gender;
+        Gender=gender;
     }
-
-
-    public String getEmail() 
-    {
+    
+    @Override
+    public String getEmail() {
         return Email;
     }
-
-
-    public void setEmail(String email)
-    {
-        Email = email;
+    
+    @Override
+    public void setEmail(String email) {
+      Email=email;
     }
-
     
     public Subscription getSubscription() 
     {
@@ -189,6 +190,7 @@ public class Customer extends Person
 
 }
 
+
     public void displayMembershiPDetails()
     {
 
@@ -251,7 +253,9 @@ public class Customer extends Person
          subscription, null, assignedCoach, membership, password);
     }
     
-    public static Customer Login(String email, String password) {
+    
+    public   static Customer  LoginCustomer(String email, String password)
+     {
         for (Customer customer :Gym.getCustomers()) 
         {
             if (customer.getEmail().equals(email) && customer.getPassword().equals(password)) {
@@ -262,7 +266,7 @@ public class Customer extends Person
     }
 
   
-
+    @Override
     public String toString()
      {
         StringBuilder sb = new StringBuilder();
@@ -299,6 +303,6 @@ public class Customer extends Person
     
         return sb.toString();
     }
-    
+
 
 }
