@@ -1,6 +1,13 @@
 package Mygym;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Scanner;
+
+import gym.Equipment;
+import gym.InBody;
+import gym.Person;
+
 import java.io.*;
 
 
@@ -199,7 +206,7 @@ public class Customer extends Person
             System.out.println("The price is : "+membership.getPrice());
             System.out.println("The monthly plan is : "+membership.getMonthlyPlan());
     }
-    public void displayInbodyInformation(Date date) 
+    public void displayInbodyInformation(LocalDateDate date) 
     
         {
             for (InBody inbody: getInBodies())
@@ -223,13 +230,13 @@ public class Customer extends Person
         
         double leanBodyMass = InBodies.get(InBodies.size()).getTotalWeight() - InBodies.get(InBodies.size()). getBodyFatMass();
 
-        // Step 3: Calculate estimated healthy weight (lean body mass + protein)
+    
         double estimatedHealthyWeight = leanBodyMass + InBodies.get(InBodies.size()).getProtein();
 
-        // Step 4: Calculate excess weight
+        
         double excessWeight = InBodies.get(InBodies.size()).getTotalWeight() - estimatedHealthyWeight;
 
-        System.out.println( "you need to reduce  "  + excessWeight+" kilos ." );
+        System.out.println( "you need to reduce  "  + excessWeight+" kilos." );
     }
     public void Myfun(){
         System.out.println("I'm customer ");
@@ -254,7 +261,7 @@ public class Customer extends Person
     }
     
     
-    public   static Customer  LoginCustomer(String email, String password)
+    public  static Customer  LoginCustomer(String email, String password)
      {
         for (Customer customer :Gym.getCustomers()) 
         {
@@ -304,5 +311,6 @@ public class Customer extends Person
         return sb.toString();
     }
 
+    
 
 }
