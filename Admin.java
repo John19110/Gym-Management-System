@@ -5,38 +5,39 @@ import java.text.SimpleDateFormat;
 
 public class Admin 
 {
-	public Gym gym;
 	
-	public Admin(Gym gym)
-	{
-		this.gym = gym;
-		
-	}
+    Gym gym;
+    
 	 
-     public void addMembership(Membership membership)
+     public Admin(Gym gym) {
+        this.gym = gym;
+    }
+    public Admin() {
+    }
+    public void addMembership(Membership membership)
     {
-    gym.getMemberships().add(membership);
+    Gym.getMemberships().add(membership);
 }
 public void addSubscription(Subscription subscription)
     {
-    gym.getSubscriptions().add(subscription);
+    Gym.getSubscriptions().add(subscription);
 }
 public void addCustomer(Customer customer)
     {
-    gym.getCustomers().add(customer);
+    Gym.getCustomers().add(customer);
 }
 public void removeCustomer(Customer customer)
 {
-    gym.getCustomers().remove(customer);
+    Gym.getCustomers().remove(customer);
 }
 
 public void addCoach(Coach coach) 
 {
-    gym.getCoaches().add(coach);
+    Gym.getCoaches().add(coach);
 }
 public void removeCoach(Coach coach)
 {
-    gym.getCoaches().remove(coach);
+    Gym.getCoaches().remove(coach);
 }
 
 public void addEquipment(Equipment equipment)
@@ -76,14 +77,14 @@ public void removeEquipment(Equipment equipment)
     {
 		System.out.println("Subscriptions:");
 		
-		for (Subscription subscription : gym.getSubscriptions())
+		for (Subscription subscription : Gym.getSubscriptions())
          {
 			if(subscription.getCustomerId() == customerId) 
             
             {
 			System.out.println("Customer : " + subscription.getCustomerId());
 			System.out.println("Coach : " + subscription.getCoachId());
-			System.out.println("The date of subescription : " + subscription.getDateOfSubescription());
+			System.out.println("The date of subescription : " + subscription.getDateOfSubscription());
 			
 		    }
 		}
@@ -92,13 +93,13 @@ public void removeEquipment(Equipment equipment)
     public void displayCustomersByCoach(int coachId)
 
     {
-        for(Coach coach: gym.getCoaches())
+        for(Coach coach: Gym.getCoaches())
         {
                 if (coach.getID()==coachId)
                 System.out.println("custoomers with Coach : " + coach.getName());
         }
 
-         for (Customer customer : gym.getCustomers()) 
+         for (Customer customer : Gym.getCustomers()) 
 
          {
             if  (customer.getAssignedCoach().getID() == coachId)
@@ -115,13 +116,13 @@ public void removeEquipment(Equipment equipment)
 
     {   
 
-        for (Subscription subscription : gym.getSubscriptions())
+        for (Subscription subscription : Gym.getSubscriptions())
          {
 
            
              try 
              {
-                 if (isSameMonth(subscription.getDateOfSubescription(),month)&&isSameYear(subscription.getDateOfSubescription(),year))
+                 if (isSameMonth(subscription.getDateOfSubscription(),month)&&isSameYear(subscription.getDateOfSubscription(),year))
                    {
                      
                      System.out.println(subscription.getCustomerId());
@@ -142,10 +143,10 @@ public void removeEquipment(Equipment equipment)
 
         {
 
-     for (Subscription subscription : gym.getSubscriptions())
+     for (Subscription subscription : Gym.getSubscriptions())
      {
 
-             if (subscription.getDateOfSubescription()==date)
+             if (subscription.getDateOfSubscription()==date)
              {
                  
                  System.out.println(subscription.getCustomerId());
@@ -162,13 +163,13 @@ public void removeEquipment(Equipment equipment)
           {
                 double totalIncome = 0.0;
                 
-        for (Subscription subscription : gym.getSubscriptions()) 
+        for (Subscription subscription : Gym.getSubscriptions()) 
         {
             
-            if (isSameMonth (subscription.getDateOfSubescription(),month) && isSameYear(subscription.getDateOfSubescription(),year)) 
+            if (isSameMonth (subscription.getDateOfSubscription(),month) && isSameYear(subscription.getDateOfSubscription(),year)) 
             {
                  
-                for(Customer customer: gym.getCustomers())
+                for(Customer customer: Gym.getCustomers())
                 {
 
                         if(subscription.getCustomerId()==customer.getID())
@@ -192,12 +193,12 @@ public void removeEquipment(Equipment equipment)
         {
         for(int i =10;i>=0;i--)
             {     
-                for(Coach coach: gym.getCoaches())
+                for(Coach coach: Gym.getCoaches())
                     {
                         
                         int NumberOfTimes=0;
                         
-                        for (Customer customer:gym.getCustomers())
+                        for (Customer customer:Gym.getCustomers())
                         {
                             if(customer.getID()==coach.getID())
                             {

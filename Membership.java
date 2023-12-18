@@ -1,69 +1,72 @@
 package Mygym;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-class Membership
- 
-{
+public class Membership {
 
-    protected Date StartDate;
-    protected Date endDate;
-    protected String MonthlyPlan;
-    protected int NumMonthsRegistered;
-    protected int Price;
+    private Date startDate;
+    private Date endDate;
+    private String monthlyPlan;
+    private int numMonthsRegistered;
+    private int price;
 
- 
-
-    public Membership(Date startDate, Date endDate, String monthlyPlan, int numMonthsRegistered, int  price) {
-        StartDate = startDate;
+    public Membership(Date startDate, Date endDate, String monthlyPlan, int numMonthsRegistered, int price) {
+        this.startDate = startDate;
         this.endDate = endDate;
-        MonthlyPlan = monthlyPlan;
-        NumMonthsRegistered = numMonthsRegistered;
-        Price = price;
-    } 
+        this.monthlyPlan = monthlyPlan;
+        this.numMonthsRegistered = numMonthsRegistered;
+        this.price = price;
+    }
+
     
-
-
-
     public Date getStartDate() {
-        return StartDate;
+        return startDate;
     }
 
     public void setStartDate(Date startDate) {
-        StartDate = startDate;
+        this.startDate = startDate;
     }
-
-    public String getMonthlyPlan() {
-        return MonthlyPlan;
-    }
-
-    public void setMonthlyPlan(String monthlyPlan) {
-        MonthlyPlan = monthlyPlan;
-    }
-
-    public int getNumMonthsRegistered() {
-        return NumMonthsRegistered;
-    }
-
-    public void setNumMonthsRegistered(int numMonthsRegistered) {
-        NumMonthsRegistered = numMonthsRegistered;
-    }
-
-    public double getPrice() 
-    {
-        return Price;
-    }
-
-    public void setPrice(int price) {
-        Price = price;
-    }
-
 
     public Date getEndDate() {
         return endDate;
     }
-
-
+    
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public String getMonthlyPlan() {
+        return monthlyPlan;
+    }
+
+    public void setMonthlyPlan(String monthlyPlan) {
+        this.monthlyPlan = monthlyPlan;
+    }
+
+    public int getNumMonthsRegistered() {
+        return numMonthsRegistered;
+    }
+
+    public void setNumMonthsRegistered(int numMonthsRegistered) {
+        this.numMonthsRegistered = numMonthsRegistered;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+    public String toString() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return "Membership{" + "\n" +
+                "startDate=" + "\n" + dateFormat.format(startDate) + "\n" +
+                ", endDate=" + "\n" + dateFormat.format(endDate) + "\n" +
+                ", monthlyPlan='"+ "\n" + monthlyPlan + '\'' +
+                ", numMonthsRegistered=" + "\n" +numMonthsRegistered + "\n" +
+                ", price=" + "\n" + price +
+                '}';
     }
 }

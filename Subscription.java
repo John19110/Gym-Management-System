@@ -1,23 +1,23 @@
 package Mygym;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-class Subscription {
+public class Subscription {
+
     protected int CustomerId;
     protected int CoachId;
     protected Membership membership;
-    protected  Date DateOfSubescription;
+    protected Date DateOfSubscription;
 
-    
-
-    public Subscription(int customerId, int coachId, Membership membership, Date dateOfSubescription) {
+    public Subscription(int customerId, int coachId, Membership membership, Date dateOfSubscription) {
         CustomerId = customerId;
         CoachId = coachId;
         this.membership = membership;
-        DateOfSubescription = dateOfSubescription;
+        DateOfSubscription = dateOfSubscription;
     }
 
-    public int getCustomerId()
-    {
+    public int getCustomerId() {
         return CustomerId;
     }
 
@@ -41,11 +41,22 @@ class Subscription {
         this.membership = membership;
     }
 
-    public Date getDateOfSubescription() {
-        return DateOfSubescription;
+    public Date getDateOfSubscription() {
+        return DateOfSubscription;
     }
 
-    public void setDateOfSubescription(Date dateOfSubescription) {
-        DateOfSubescription = dateOfSubescription;
+    public void setDateOfSubscription(Date dateOfSubscription) {
+        DateOfSubscription = dateOfSubscription;
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return "Subscription{" +
+                "CustomerId=" + CustomerId +
+                ", CoachId=" + CoachId +
+                ", membership=" + membership +
+                ", DateOfSubscription=" + dateFormat.format(DateOfSubscription) +
+                '}';
     }
 }

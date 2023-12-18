@@ -2,36 +2,36 @@ package Mygym;
 import java.sql.Date;
 import java.util.List;
 import java.io.*;
-import java.util.ArrayList;
 
 
 
-public class Customer extends Person
+public class Customer extends Person 
 {
 
 
 
 
-    private String password;
-    private static List<Customer> registeredCustomers = new ArrayList<>();
+
     private Subscription Subscription;
     private List<InBody>InBodies;
     private Coach assignedCoach;
     private Membership membership;
+    private String password;
     
    
 
-   public Customer(int iD, String name, String address, String gender, String email, String phoneNumber,
-                    String subscription, Coach assignedCoach, Membership membership, String password)
-    {
-       
+ 
+
+  
+    public Customer(int iD, String name, String address, String gender, String email, String phoneNumber,
+            Mygym.Subscription subscription, List<InBody> inBodies, Coach assignedCoach, Membership membership,
+            String password) {
         super(iD, name, address, gender, email, phoneNumber);
         Subscription = subscription;
         InBodies = inBodies;
         this.assignedCoach = assignedCoach;
-        this.password = password;
         this.membership = membership;
-        registeredCustomers.add(this);
+        this.password = password;
     }
 
     public int getID()
@@ -146,7 +146,14 @@ public class Customer extends Person
     {
         Subscription = subscription;
     }
-
+    
+    public String getPassword() {
+        return password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 
     
@@ -195,15 +202,15 @@ public class Customer extends Person
         {
             for (InBody inbody: getInBodies())
              {
-                if (inbody.getDate_of_InBody().equals(date))
+                if (inbody.getDateOfInBody().equals(date))
              {
-                    System.out.println("The date of Inbody : " + inbody.getDate_of_InBody());
+                    System.out.println("The date of Inbody : " + inbody.getDateOfInBody());
                     System.out.println("The Hight: " + inbody.getHeight());
                     System.out.println("The Minerals : " + inbody.getMinerals());
                     System.out.println("The Protein : " + inbody.getProtein());
-                    System.out.println("The Total body water : " + inbody.getTotal_Body_Water());
-                    System.out.println("The body fat mass : " + inbody.getBody_Fat_Mass());
-                    System.out.println("The total weight : " + inbody.getTotal_Weight());      
+                    System.out.println("The Total body water : " + inbody.getTotalBodyWater());
+                    System.out.println("The body fat mass : " + inbody.getBodyFatMass());
+                    System.out.println("The total weight : " + inbody.getTotalWeight());      
              }
 
             }
@@ -212,43 +219,86 @@ public class Customer extends Person
     public void DisplayHowManyKilosNeededToReduce()
     { 
         
-        double leanBodyMass = InBodies.get(InBodies.size()).getTotal_Weight() - InBodies.get(InBodies.size()). getBody_Fat_Mass();
+        double leanBodyMass = InBodies.get(InBodies.size()).getTotalWeight() - InBodies.get(InBodies.size()). getBodyFatMass();
 
         // Step 3: Calculate estimated healthy weight (lean body mass + protein)
         double estimatedHealthyWeight = leanBodyMass + InBodies.get(InBodies.size()).getProtein();
 
         // Step 4: Calculate excess weight
-        double excessWeight = InBodies.get(InBodies.size()).getTotal_Weight() - estimatedHealthyWeight;
+        double excessWeight = InBodies.get(InBodies.size()).getTotalWeight() - estimatedHealthyWeight;
 
-        System.out.println( "you need to reduce  "  + excessWeight+" kilos." );
+        System.out.println( "you need to reduce  "  + excessWeight+" kilos ." );
     }
     public void Myfun(){
-        System.out.println("I'm a customer");
+        System.out.println("I'm customer ");
 
     }
     public void suii(){
-        System.out.println("the only customer");
+        System.out.println("the only customer ");
     }
-
-    public static Customer registerCustomer(int iD, String name, String address, String gender, String email,
-                                            String phoneNumber, String subscription, Coach assignedCoach,
-                                            Membership membership, String password) 
+    public static Customer register(int iD, String name, String address, String gender, String email,
+                                            String phoneNumber,Subscription subscription,Coach assignedCoach,
+                                            Membership membership, String password )
     {
-        for (Customer existingCustomer : registeredCustomers) {
-            if (existingCustomer.getEmail().equals(email)) {
+        for (Customer customer : Gym.getCustomers())
+         {
+            if (customer.getEmail().equals(email))
+             {
                 return null; // Registration failed since a user with the same email already exists
             }
         }
-        return new Customer(iD, name, address, gender, email, phoneNumber, subscription, assignedCoach, membership, password);
+        return new Customer(iD, name, address, gender, email, phoneNumber,
+         subscription, null, assignedCoach, membership, password);
     }
     
-    public static Customer CustomerLogin(String email, String password) {
-        for (Customer customer : registeredCustomers) {
+    public static Customer Login(String email, String password) {
+        for (Customer customer :Gym.getCustomers()) 
+        {
             if (customer.getEmail().equals(email) && customer.getPassword().equals(password)) {
                 return customer; // Login successful
             }
         }
         return null; // Login failed
     }
+
+  
+
+    public String toString()
+     {
+        StringBuilder sb = new StringBuilder();
+    
+        sb.append(super.toString()); // Include Person details
+        sb.append("Password: ").append(password).append("\n");
+    
+        if (Subscription != null) {
+            sb.append("Subscription: ").append(Subscription.toString()).append("\n");
+        } else {
+            sb.append("Subscription: null\n");
+        }
+    
+        if (InBodies != null) {
+            sb.append("InBodies:\n");
+            for (InBody inBody : InBodies) {
+                sb.append(inBody.toString()).append("\n");
+            }
+        } else {
+            sb.append("InBodies: null\n");
+        }
+    
+        if (assignedCoach != null) {
+            sb.append("Assigned Coach: ").append(assignedCoach.getName()).append("\n");
+        } else {
+            sb.append("Assigned Coach: null\n");
+        }
+    
+        if (membership != null) {
+            sb.append("Membership: ").append(membership.toString()).append("\n");
+        } else {
+            sb.append("Membership: null\n");
+        }
+    
+        return sb.toString();
+    }
+    
 
 }

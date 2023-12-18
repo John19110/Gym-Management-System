@@ -1,7 +1,6 @@
 package Mygym;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,22 +9,32 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main 
-{
 
-    Gym gym = new Gym(null, null, null);  
+{
+    static Main main=new Main();
+    
+    public Gym gym=new Gym("Perfecet Gym", "12 Ahmed Orabi st Shobra Elkhima", "01273036464");
+
     Admin admin = new Admin(gym);
     public static void main(String[] args) throws FileNotFoundException, NullPointerException
      {
          
-         Main main=new Main();
-         main.read("inputdata.txt");   // reeeeaaaadddddiiiiiinnnnggggg for just one timmmmmeeeeee
+         main.read("inputdata.txt");   
           System.out.println("Welcome in our gym !");
         System.out.println("________________________");
 
-    //    main.write("outputdata.txt");
+
+
+        //oliver and beashoy work will be here
+        //oliver and beashoy work will be here
+        //oliver and beashoy work will be here
+         
+    main.write(Gym.tString(),"outputdata.txt");
+
 
     }
 
+    
     public  void read(String filepath) throws FileNotFoundException
      {
 
@@ -35,7 +44,8 @@ public class Main
         if (file.exists()) {
             inputfile = new Scanner(file);
 
-            for (int i = 0; i < 2 && inputfile.hasNextLine(); i++) {
+            while (inputfile.hasNextLine())
+             {
                 try {
                     int CustomerId = Integer.parseInt(inputfile.nextLine());
                     String Customername = inputfile.nextLine();
@@ -43,13 +53,14 @@ public class Main
                     String Customergender = inputfile.nextLine();
                     String Customeremail = inputfile.nextLine();
                     String Customerphonenumber = inputfile.nextLine();
-
+                    String Customerpassword = inputfile.nextLine();
                     int CoachId = Integer.parseInt(inputfile.nextLine());
                     String Coachname = inputfile.nextLine();
                     String Coachaddress = inputfile.nextLine();
                     String Coachgender = inputfile.nextLine();
                     String Coachemail = inputfile.nextLine();
                     String Coachphonenumber = inputfile.nextLine();
+                    String Coachpassword = inputfile.nextLine();
 
                     String stringstartdate = inputfile.nextLine();
                     String stringenddate = inputfile.nextLine();
@@ -94,19 +105,23 @@ public class Main
                     Membership membership = new Membership(startdate, enddate, monthlyPlan, numMonthsRegistered, pric);
                     InBody inbody = new InBody(CustomerId, Customername, Customeraddress, Customergender, Customeremail, Customerphonenumber,
                             dateofinbody, height, totalWeight, body_Fat_Mass, minerals, total_Body_Water, protein);
-
-                            Subscription subscription = new Subscription(CustomerId, CoachId, membership, dateofsubescribtion);
-                            Coach coach = new Coach(CoachId, Coachname, Coachaddress, Coachgender,
-                            Coachemail, Coachphonenumber, workinghours, null);
-                       List<InBody>inbodies=gym.getCustomers().get(i).getInBodies();
-                       inbodies.add(inbody);
-                            Customer customer = new Customer(CustomerId, Customername, Customeraddress, Customergender, Customeremail,
-                            Customerphonenumber, subscription,inbodies, coach, membership);
-                    Equipment equipment = new Equipment(equipmentname, equipmentcode, Equipmentquantity);
-
+                     ArrayList<InBody> inBodyList = new ArrayList<>();
+                     inBodyList.add(inbody);
+                        ArrayList<Customer> customers = new ArrayList<>();
+                        
+                        Subscription subscription = new Subscription(CustomerId, CoachId, membership, dateofsubescribtion);
+                        Equipment equipment = new Equipment(equipmentname, equipmentcode, Equipmentquantity);
+                        Customer customer = new Customer(CustomerId, Customername, Customeraddress, Customergender, Customeremail,
+                        Customerphonenumber, subscription,inBodyList, null, membership,Customerpassword);
+                        customers.add(customer);
+                        Coach coach = new Coach(CoachId, Coachname, Coachaddress, Coachgender,
+                        Coachemail, Coachphonenumber, workinghours, customers,Coachpassword);
+                        
                     admin.addCustomer(customer);
                     admin.addCoach(coach);
                     admin.addEquipment(equipment);
+                    admin.addSubscription(subscription);
+                    
 
                 } catch (NumberFormatException | ParseException e) {
                     // Handle the exception (e.g., log the error, provide a user-friendly message)
@@ -114,20 +129,24 @@ public class Main
                 }
             }
 
-            if (!gym.getCustomers().isEmpty()) {
-                System.out.println(gym.getCustomers().get(0).getID());
-                System.out.println(gym.getCustomers().get(0).getName());
-                System.out.println(gym.getCoaches().get(1).getEmail());
-                System.out.println(gym.getCustomers().get(0).getInBodies().get(0).getTotal_Body_Water());
-            }
-
+        
             inputfile.close(); // Close the scanner after reading the file
         }
     }
-        public  void write(String filepath)
+
+   
+    
+    private  <T> void write(String string, String filePath)
+     {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) 
         {
+            oos.writeObject(string);
+
+        } catch (IOException e) 
+        {
+            e.printStackTrace();
 
         }
-
+       
+    }
 }
-

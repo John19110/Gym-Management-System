@@ -6,14 +6,16 @@ class Coach extends Person
 {
     protected int WorkingHours;
     protected List<Customer> Coachcustomers;
+    protected String password;
 
 
 
     public Coach(int iD, String name, String address, String gender, String email, String phoneNumber, int workingHours,
-            List<Customer> coachcustomers) {
+            List<Customer> coachcustomers, String password) {
         super(iD, name, address, gender, email, phoneNumber);
         WorkingHours = workingHours;
         Coachcustomers = coachcustomers;
+        this.password = password;
     }
 
     public int getWorkingHours() {
@@ -134,4 +136,51 @@ class Coach extends Person
         }
         return result;
     }
+    public static Coach register(int iD, String name, String address, String gender, String email,
+    String phoneNumber ,int workingHours,List<Customer>customers , String password )
+{
+
+for (Coach coach : Gym.getCoaches())
+
+{
+if (coach.getEmail().equals(email))
+{
+return null; // Registration failed since a user with the same email already exists
+}
+
+}
+return new Coach(iD, name, address, gender, email, phoneNumber, iD, null,password);
+
+
+}
+
+public static Customer Login(String email, String password) {
+for (Customer customer :Gym.getCustomers()) 
+{
+if (customer.getEmail().equals(email) && customer.getPassword().equals(password)) {
+return customer; // Login successful
+}
+}
+return null; // Login failed
+}
+public String toString() {
+    StringBuilder sb = new StringBuilder();
+
+    sb.append(super.toString()); // Include Person details
+    sb.append("Working Hours: ").append(WorkingHours).append("\n");
+
+    if (Coachcustomers != null) {
+        sb.append("Coach's Customers:\n");
+        for (Customer customer : Coachcustomers) {
+            sb.append(customer.getName().toString()).append("\n");
+        }
+    } else {
+        sb.append("Coach's Customers: null\n");
+    }
+
+    sb.append("Password: ").append(password).append("\n");
+
+    return sb.toString();
+}
+
 }

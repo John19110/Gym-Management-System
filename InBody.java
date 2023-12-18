@@ -1,74 +1,77 @@
 package Mygym;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class InBody extends Person 
-{
+public class InBody extends Person {
 
-   
+    private Date dateOfInBody;
+    private double height, totalWeight, bodyFatMass, minerals, totalBodyWater, protein;
 
-    private Date Date_Of_InBody;
-    private double Height, Total_Weight, Body_Fat_Mass, Minerals, Total_Body_Water, Protein;
-    
-
-    
     public InBody(int iD, String name, String address, String gender, String email, String phoneNumber,
-            Date date_Of_InBody, double height, double total_Weight, double body_Fat_Mass, double minerals,
-            double total_Body_Water, double protein)
-             {
+                  Date dateOfInBody, double height, double totalWeight, double bodyFatMass, double minerals,
+                  double totalBodyWater, double protein) 
+                  {
         super(iD, name, address, gender, email, phoneNumber);
-        Date_Of_InBody = date_Of_InBody;
-        Height = height;
-        Total_Weight = total_Weight;
-        Body_Fat_Mass = body_Fat_Mass;
-        Minerals = minerals;
-        Total_Body_Water = total_Body_Water;
-        Protein = protein;
+        this.dateOfInBody = dateOfInBody;
+        this.height = height;
+        this.totalWeight = totalWeight;
+        this.bodyFatMass = bodyFatMass;
+        this.minerals = minerals;
+        this.totalBodyWater = totalBodyWater;
+        this.protein = protein;
     }
 
-    public void setdate_of_InBody(Date Date_Of_InBody)
-
-    {
-        this.Date_Of_InBody=Date_Of_InBody;
-    }
-    
-    public Date getDate_of_InBody() {
-        return Date_Of_InBody;
+    public void setDateOfInBody(Date dateOfInBody) {
+        this.dateOfInBody = dateOfInBody;
     }
 
-    public void setTotal_Weight(double Total_Weight)
-    {
-        this.Total_Weight=Total_Weight;
+    public Date getDateOfInBody() {
+        return dateOfInBody;
     }
-    
-    public double getTotal_Weight() {
-        return Total_Weight;
+
+    public void setTotalWeight(double totalWeight) {
+        this.totalWeight = totalWeight;
     }
-    public void setBody_Fat_Mass(double Body_Fat_Mass)
-    {
-        this.Body_Fat_Mass=Body_Fat_Mass;
+
+    public double getTotalWeight() {
+        return totalWeight;
     }
-    
-    public double getBody_Fat_Mass() {
-        return Body_Fat_Mass;
+
+    public void setBodyFatMass(double bodyFatMass) {
+        this.bodyFatMass = bodyFatMass;
     }
-    
+
+    public double getBodyFatMass() {
+        return bodyFatMass;
+    }
+
     public double getMinerals() {
-        return Minerals;
+        return minerals;
     }
 
-    public double getTotal_Body_Water() {
-        return Total_Body_Water;
+    public double getTotalBodyWater() {
+        return totalBodyWater;
     }
 
     public double getProtein() {
-        return Protein;
+        return protein;
     }
-    
+
     public double getHeight() {
-        return Height;
+        return height;
     }
 
+    @Override
+    public String toString() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return super.toString() +
+                "Date Of InBody=" + dateFormat.format(dateOfInBody) + "\n" +
+                "Height=" + height + "\n" +
+                "Total Body Water=" + totalBodyWater + "\n" +
+                "Total Weight=" + totalWeight + "\n" +
+                "Body Fat Mass=" + bodyFatMass + "\n" +
+                "Minerals=" + minerals + "\n" +
+                "Protein=" + protein + "\n";
+    }
 }
-
-    

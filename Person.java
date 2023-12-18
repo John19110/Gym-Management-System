@@ -1,6 +1,8 @@
 package Mygym;
 
-public   class Person {
+
+public   class Person 
+{
     protected int ID;
     protected String Name, Address, Gender, Email,PhoneNumber;
     
@@ -66,12 +68,8 @@ public   class Person {
         Email = email;
     }
 
-    public   void Login(){
-        System.out.println("int d");
-    };
-    public  void  Myfun()
-    {
-        System.out.println("I'm person");
-    };
+
+   
+    
     
 }
