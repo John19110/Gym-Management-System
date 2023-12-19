@@ -10,23 +10,26 @@ import java.util.Scanner;
 
 public class Main 
 
-{//  general Main Bracket
+{//  general Main pracket
 
     static public Gym gym=new Gym("Perfecet Gym", "12 Ahmed Orabi st Shobra Elkhima", "01273036464");
     static Main main=new Main();
 
     static Admin  admin = new Admin(gym);
+    private static Object a;
     public static void main(String[] args) throws FileNotFoundException, NullPointerException, ParseException
-     { //main Bracket
+     {
          
          main.read("inputdata.txt");   //read function
         System.out.println("________________________");
              
-            String Choicefinal="yes";
             do
-             { //do while Bracket 
+             { //do while braket 
 
-  
+
+             
+            try (Scanner scanner = new Scanner(System.in))
+             {
                 System.out.println("Welcome to our Gym Management System ");
                 System.out.println("1. Customer Registration ");
                 System.out.println("2. Customer Login ");
@@ -36,7 +39,6 @@ public class Main
                 System.out.println("6. Exit ");
 
                 System.out.println("Enter your choice: ");
-                Scanner scanner=new Scanner(System.in);
                 int choice = scanner.nextInt();
                 switch (choice) 
                 {
@@ -57,30 +59,24 @@ public class Main
 
                         System.out.println("Enter your phone number: ");
                         String phoneNumber = scanner.nextLine();
-
                         System.out.println("Enter your coach id: ");
                         int  coachid = scanner.nextInt();
 
-                        Coach assignedCoach=null;
-                        do {
+                        Coach assignedCoach=new Coach(id, name, address, gender, gender, phoneNumber, coachid, phoneNumber, null);
+                        for(Coach coach:Gym.getCoaches())
 
-                            for(Coach coach:Gym.getCoaches())
-                            
+                        {
+                            if ( coach.getID()==coachid)
                             {
-                                if ( coach.getID()==coachid)
-                                {
-                                    assignedCoach=coach;
-                                    
-                                }
+                                assignedCoach=coach;
                             }
-                            if (assignedCoach==null)
+                            else
                             {
-                                System.out.println("Enter valid ID");
-                                coachid = scanner.nextInt();
-                                
+                                assignedCoach=null;
+
                             }
+
                         }
-                            while (assignedCoach==null);
                         
                         System.out.println("Enter your email: ");
                         String email = scanner.nextLine();
@@ -320,6 +316,7 @@ public class Main
                             System.out.println("Coach login successful!");
                             System.out.println("#-------------------------#");
 
+                                String answer2;
                                 System.out.println("1. Show your customers.");
                                 System.out.println("2. Get the inbody history of any of your customers.");
                                 System.out.println("3. Get all the details of a customer by his name..");
@@ -365,7 +362,6 @@ public class Main
                                     Scanner cans = new Scanner(System.in); {
                                         String gender=cans.nextLine();
                                         gymCoach.getCustomersByGender(gender);
-                                        cans.close();
                                     }
                                     
                                 }
@@ -935,15 +931,22 @@ public class Main
 
 
 }
-
-       main.write(Gym.tString(),"outputdata.txt");//write function
+main.write(Gym.tString(),"outputdata.txt");//write function
+            }//try brackets
 
       System.out.println("Do you want to continue? (Type  yes to continue. Else will go back to main menu)");
-                Scanner scanner2=new Scanner(System.in);
-                Choicefinal  = scanner2.nextLine(); 
-                scanner2.close();
+                                    try (Scanner scanner = new Scanner(System.in)) 
+                                    {
+                                    }
+                                    
+                                    System.out.println("Do you want to continue? (Type  yes to continue. Else will go back to main menu)");
+                                    try (Scanner scanner4 = new Scanner(System.in))
+                                     {
+                                        String a = scanner4.nextLine();
+                                    }
                                 }//while bracket       
-                                while(Choicefinal.equals("yes"));
+                                
+                                while(a.equals("yes"));
                                 
                             }////  general Main pracket
 

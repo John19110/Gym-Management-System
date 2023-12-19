@@ -80,7 +80,8 @@ public class Gym
         Gym.subscriptions = subscriptions;
     }
 
-    public static List<Membership> getMemberships() {
+    public static List<Membership> getMemberships() 
+    {
         return memberships;
     }
 

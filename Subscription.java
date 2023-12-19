@@ -38,8 +38,31 @@ public class Subscription {
     }
 
     public void setMembership(Membership membership) {
-        this.membership = membership;
+    	   
+        try 
+        {
+               if (this.membership != null)
+               {
+               throw new IllegalStateException("Customer has already an active membership plan.");
+               }
+               
+            this.membership = membership;
+            
+            
+            //catch.....
+            
+        } 
+        catch (IllegalStateException e)
+        {
+           
+            System.err.println("Error setting membership: " + e.getMessage());
+            
+            this.membership = null;
+            
+            
+        }
     }
+
 
     public Date getDateOfSubscription() {
         return DateOfSubscription;

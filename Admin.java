@@ -6,14 +6,14 @@ import java.text.SimpleDateFormat;
 public class Admin 
 {
 	
-    Gym gym;
+ protected   Gym gym;
     
 	 
-     public Admin(Gym gym) {
+     public Admin(Gym gym) 
+     {
         this.gym = gym;
     }
-    public Admin() {
-    }
+   
     public void addMembership(Membership membership)
     {
     Gym.getMemberships().add(membership);
@@ -200,7 +200,7 @@ public void removeEquipment(Equipment equipment)
                         
                         for (Customer customer:Gym.getCustomers())
                         {
-                            if(customer.getID()==coach.getID())
+                            if(customer.getAssignedCoach().getID()==coach.getID())
                             {
                                 NumberOfTimes++;
                             }

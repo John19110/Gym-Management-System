@@ -1,13 +1,6 @@
 package Mygym;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Scanner;
-
-import gym.Equipment;
-import gym.InBody;
-import gym.Person;
-
 import java.io.*;
 
 
@@ -15,21 +8,12 @@ import java.io.*;
 public class Customer extends Person 
 {
 
-
-
-
-
     private Subscription Subscription;
     private List<InBody>InBodies;
     private Coach assignedCoach;
     private Membership membership;
     private String password;
-    
-   
 
- 
-
-  
     public Customer(int iD, String name, String address, String gender, String email, String phoneNumber,
             Mygym.Subscription subscription, List<InBody> inBodies, Coach assignedCoach, Membership membership,
             String password) {
@@ -206,7 +190,7 @@ public class Customer extends Person
             System.out.println("The price is : "+membership.getPrice());
             System.out.println("The monthly plan is : "+membership.getMonthlyPlan());
     }
-    public void displayInbodyInformation(LocalDateDate date) 
+    public void displayInbodyInformation(Date date) 
     
         {
             for (InBody inbody: getInBodies())
@@ -230,13 +214,13 @@ public class Customer extends Person
         
         double leanBodyMass = InBodies.get(InBodies.size()).getTotalWeight() - InBodies.get(InBodies.size()). getBodyFatMass();
 
-    
+        // Step 3: Calculate estimated healthy weight (lean body mass + protein)
         double estimatedHealthyWeight = leanBodyMass + InBodies.get(InBodies.size()).getProtein();
 
-        
+        // Step 4: Calculate excess weight
         double excessWeight = InBodies.get(InBodies.size()).getTotalWeight() - estimatedHealthyWeight;
 
-        System.out.println( "you need to reduce  "  + excessWeight+" kilos." );
+        System.out.println( "you need to reduce  "  + excessWeight+" kilos ." );
     }
     public void Myfun(){
         System.out.println("I'm customer ");
@@ -246,22 +230,50 @@ public class Customer extends Person
         System.out.println("the only customer ");
     }
     public static Customer register(int iD, String name, String address, String gender, String email,
-                                            String phoneNumber,Subscription subscription,Coach assignedCoach,
-                                            Membership membership, String password )
-    {
-        for (Customer customer : Gym.getCustomers())
-         {
-            if (customer.getEmail().equals(email))
-             {
-                return null; // Registration failed since a user with the same email already exists
-            }
-        }
-        return new Customer(iD, name, address, gender, email, phoneNumber,
-         subscription, null, assignedCoach, membership, password);
-    }
+    String phoneNumber,Subscription subscription,Coach assignedCoach,
+    Membership membership, String password )
+{
+for (Customer customer : Gym.getCustomers())
+{
+if (customer.getEmail().equals(email))
+{
+return null; // Registration failed since a user with the same email already exists
+}
+}
+try {
+
+if (assignedCoach != null) {
+
+int currentCustomers = 0;
+
+for (Customer customer : Gym.getCustomers()) {
+if (customer.getAssignedCoach().equals(assignedCoach))
+ {
+currentCustomers++;
+}
+}
+
+if (currentCustomers >= 10) {
+throw new IllegalStateException("The coach cannot have more than 10 customers.");
+}
+}
+
+
+      
+return new Customer(iD, name, address, gender, email, phoneNumber,
+subscription, null, assignedCoach, membership, password);
+
+
+
+} catch (IllegalStateException e ) {
+System.err.println("Error during registration: " + e.getMessage());
+return null;
+}
+}
+
     
     
-    public  static Customer  LoginCustomer(String email, String password)
+    public   static Customer  LoginCustomer(String email, String password)
      {
         for (Customer customer :Gym.getCustomers()) 
         {
@@ -273,44 +285,19 @@ public class Customer extends Person
     }
 
   
-    @Override
-    public String toString()
-     {
-        StringBuilder sb = new StringBuilder();
-    
-        sb.append(super.toString()); // Include Person details
-        sb.append("Password: ").append(password).append("\n");
-    
-        if (Subscription != null) {
-            sb.append("Subscription: ").append(Subscription.toString()).append("\n");
-        } else {
-            sb.append("Subscription: null\n");
-        }
-    
-        if (InBodies != null) {
-            sb.append("InBodies:\n");
-            for (InBody inBody : InBodies) {
-                sb.append(inBody.toString()).append("\n");
-            }
-        } else {
-            sb.append("InBodies: null\n");
-        }
-    
-        if (assignedCoach != null) {
-            sb.append("Assigned Coach: ").append(assignedCoach.getName()).append("\n");
-        } else {
-            sb.append("Assigned Coach: null\n");
-        }
-    
-        if (membership != null) {
-            sb.append("Membership: ").append(membership.toString()).append("\n");
-        } else {
-            sb.append("Membership: null\n");
-        }
-    
-        return sb.toString();
-    }
+    public String toString() {
 
-    
+return "Customer ID: " + getID() +
+                   "\nName: " + getName() +
+                   "\nAddress: " + getAddress() +
+                   "\nGender: " + getGender() +
+                   "\nEmail: " + getEmail() +
+                   "\nPhone Number: " + getPhoneNumber() +
+                   "\nSubscription: " + getSubscription() +
+                   "\nInBodies: " + getInBodies() +
+                   "\nAssigned Coach: " + assignedCoach +
+                   "\nMembership: " + membership +
+                   "\nPassword: " + password;    
+    }
 
 }

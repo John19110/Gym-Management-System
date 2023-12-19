@@ -3,20 +3,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import gym.InBody;
-import gym.Person;
-
 class Coach extends Person 
 {
     protected int WorkingHours;
     protected String password;
+    protected ArrayList<Customer>CoacheCustomers;
 
 
 
-    public Coach(int iD, String name, String address, String gender, String email, String phoneNumber, int workingHours, String password) {
+    
+
+    public Coach(int iD, String name, String address, String gender, String email, String phoneNumber, int workingHours,
+            String password, ArrayList<Customer> coacheCustomers) {
         super(iD, name, address, gender, email, phoneNumber);
         WorkingHours = workingHours;
         this.password = password;
+        CoacheCustomers = coacheCustomers;
     }
 
     public int getWorkingHours() {
@@ -136,7 +138,8 @@ class Coach extends Person
         }
         return null;
     }
-    public Customer getCustomerByName(String customerName) {
+    public Customer getCustomerByName(String customerName)
+     {
         for (Customer customer : Gym.getCustomers()) {
             if (customer.getName().equals(customerName)) {
                 return customer;
@@ -156,7 +159,7 @@ class Coach extends Person
         return result;
     }
     public static Coach registerCoach(int iD, String name, String address, String gender, String email,
-    String phoneNumber ,int workingHours,List<Customer>customers , String password )
+    String phoneNumber ,int workingHours, String password )
 {
 
 for (Coach coach : Gym.getCoaches())
@@ -168,7 +171,7 @@ return null; // Registration failed since a user with the same email already exi
 }
 
 }
-return new Coach(iD, name, address, gender, email, phoneNumber, workingHours, password);
+return  new Coach(iD, name, address, gender, email, phoneNumber, workingHours, password, null);
 
 
 }
@@ -192,9 +195,11 @@ public String toString() {
            "\nEmail: " + getEmail() +
            "\nPhone Number: " + getPhoneNumber() +
            "\nWorking Hours: " + getWorkingHours();
+    // Add any other relevant information you want to include
 }
-public static Coach getCoachDetails(Scanner scanner) {
-    System.out.println("Enter coach name: ");
+
+public static Coach getCoachDetails(Scanner scanner) 
+{
     String coachName = scanner.nextLine();
 
     Coach coach = findCoachByName(coachName);
@@ -215,6 +220,14 @@ public static Coach findCoachByName(String coachName) {
         }
     }
     return null;
+}
+
+public ArrayList<Customer> getCoacheCustomers() {
+    return CoacheCustomers;
+}
+
+public void setCoacheCustomers(ArrayList<Customer> coacheCustomers) {
+    CoacheCustomers = coacheCustomers;
 }
 
 }
