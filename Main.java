@@ -1,5 +1,4 @@
 package Mygym;
-
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,23 +10,23 @@ import java.util.Scanner;
 
 public class Main 
 
-{
-     static public Gym gym=new Gym("Perfecet Gym", "12 Ahmed Orabi st Shobra Elkhima", "01273036464");
+{//  general Main Bracket
+
+    static public Gym gym=new Gym("Perfecet Gym", "12 Ahmed Orabi st Shobra Elkhima", "01273036464");
     static Main main=new Main();
-    
 
-     static Admin  admin = new Admin(gym);
+    static Admin  admin = new Admin(gym);
     public static void main(String[] args) throws FileNotFoundException, NullPointerException, ParseException
-     {
+     { //main Bracket
          
-         main.read("inputdata.txt");   
+         main.read("inputdata.txt");   //read function
         System.out.println("________________________");
+             
+            String Choicefinal="yes";
+            do
+             { //do while Bracket 
 
-
-
-        while (true) 
-{
-            try (Scanner scanner = new Scanner(System.in)) {
+  
                 System.out.println("Welcome to our Gym Management System ");
                 System.out.println("1. Customer Registration ");
                 System.out.println("2. Customer Login ");
@@ -37,6 +36,7 @@ public class Main
                 System.out.println("6. Exit ");
 
                 System.out.println("Enter your choice: ");
+                Scanner scanner=new Scanner(System.in);
                 int choice = scanner.nextInt();
                 switch (choice) 
                 {
@@ -58,191 +58,247 @@ public class Main
                         System.out.println("Enter your phone number: ");
                         String phoneNumber = scanner.nextLine();
 
-                        // System.out.println("Enter your subscription: ");
-                        // String subscription = scanner.nextLine();
+                        System.out.println("Enter your coach id: ");
+                        int  coachid = scanner.nextInt();
 
+                        Coach assignedCoach=null;
+                        do {
+
+                            for(Coach coach:Gym.getCoaches())
+                            
+                            {
+                                if ( coach.getID()==coachid)
+                                {
+                                    assignedCoach=coach;
+                                    
+                                }
+                            }
+                            if (assignedCoach==null)
+                            {
+                                System.out.println("Enter valid ID");
+                                coachid = scanner.nextInt();
+                                
+                            }
+                        }
+                            while (assignedCoach==null);
+                        
                         System.out.println("Enter your email: ");
                         String email = scanner.nextLine();
-
+                        
                         System.out.println("Enter your password: ");
                         String customerPassword = scanner.nextLine();
 
+                            System.out.println("Enter your start Date: ");
+                            String dateString = scanner.next();
+                            SimpleDateFormat dateF = new SimpleDateFormat("yyyy-MM-dd");
+                            Date startdate = dateF.parse(dateString);
+                        
+                                                        System.out.println("Enter your end Date: ");
+                                                        String dateString2 = scanner.next();
+                                                        SimpleDateFormat Date = new SimpleDateFormat("yyyy-MM-dd");
+                                                        Date endDate = Date.parse(dateString2);
+                                                        
+
+                                                
+                                               
+                                                System.out.println(" Enter monthly plan : ");
+                                                String monthlyplan = scanner.nextLine();
+
+                                                System.out.println(" Enter number of monthes : ");
+                                                int numberofmonthes = scanner.nextInt();
+
+                                                System.out.println(" Enter price : ");
+                                                int price = scanner.nextInt();
+
+                             System.out.println("Enter today's  Date: ");
+                            String dateString3 = scanner.next();
+                            SimpleDateFormat datee = new SimpleDateFormat("yyyy-MM-dd");
+                            Date DateOfSubscription = datee.parse(dateString3);
 
 
-                        Customer newCustomer = Customer.register(id, name, address, gender, email, phoneNumber,
-                        Gym.getSubscriptions().get(1), Gym.getCoaches().get(1), Gym.getMemberships().get(1), customerPassword);
+
+
+
+                                            
+                         
+
+                        
+                    Membership membership =new Membership(startdate, endDate, monthlyplan, numberofmonthes, price);
+                            
+                            Subscription subscription=new Subscription(id, assignedCoach.getID(), membership, DateOfSubscription);
+                        Customer newCustomer = Customer.register(coachid, name, address, gender, email, phoneNumber,
+                         subscription, assignedCoach, membership, customerPassword);
+                            
+                        //  Gym.getCoaches().get(0), Gym.getMemberships().get(0), customerPassword);
                         if (newCustomer != null) 
                         {
                             System.out.println("Registration successful!");
+                            continue;
                         }
                         else
                          {
                             System.out.println("Registration failed. User with the same email already exists.");
                             continue;
-                        }
 
-                        break;
-                    }
+                        }
+                    
+                }
 
                     case 2:{
 
                         System.out.println("Enter your email: ");
-                        String customerEmail = scanner.nextLine();
+                        try (Scanner cans = new Scanner(System.in)) {
+                            String customerEmail = cans.nextLine();
 
-                        System.out.println("Enter your password: ");
-                        String customerPassword = scanner.nextLine();
+                            System.out.println("Enter your password: ");
+                            String customerPassword = cans.nextLine();
 
-                        Customer gymCustomer = Customer. LoginCustomer(customerEmail, customerPassword);
+                            Customer gymCustomer = Customer. LoginCustomer(customerEmail, customerPassword);
 
-                        if (gymCustomer != null) {
+                            if (gymCustomer != null) {
 
-                            System.out.println("Customer login successful!");
-                            System.out.println("#-------------------------#");
+                                System.out.println("Customer login successful!");
+                                System.out.println("#-------------------------#");
 
-                            while(true)
-                            {
-                                String answer;
-                                System.out.println("1. Display Coach Information.");
-                                System.out.println("2. Display Equipments.");
-                                System.out.println("3. Display Membership plan.");
-                                System.out.println("4. Display Inbody information in a specific date.");
-                                System.out.println("5. Display How many kilos should you loss.");
+                                
+                                
+                                    String answer;
+                                    System.out.println("1. Display Coach Information.");
+                                    System.out.println("2. Display Equipments.");
+                                    System.out.println("3. Display Membership plan.");
+                                    System.out.println("4. Display Inbody information in a specific date.");
+                                    System.out.println("5. Display How many kilos should you loss.");
 
-                                int choice2 = scanner.nextInt();
-                                switch (choice2){
-                                    case(1):
-                                    {
-                                        gymCustomer.displayCoahInfo();
-
-                                        System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
-                                        answer = scanner.nextLine();
-                                        if(answer.equals("yes") || answer.equals("Yes")){
-                                            continue;
-                                        }
-                                        else{
-                                            break;
-                                        }
-
-                                    }
-                                    case(2):{
-                                        gymCustomer.displayEquipments();
-                                        System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
-                                        answer = scanner.nextLine();
-                                        if(answer.equals("yes") || answer.equals("Yes")){
-                                            continue;
-                                        }
-                                        else{
-                                            break;
-                                        }
-
-                                    }
-                                    case(5):{
-                                        gymCustomer.DisplayHowManyKilosNeededToReduce();
-                                        System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
-                                        answer = scanner.nextLine();
-                                        if(answer.equals("yes") || answer.equals("Yes"))
+                                    int choice2 = scanner.nextInt();
+                                    switch (choice2){
+                                        case(1):
                                         {
-                                            continue;
-                                        }
-                                        else{
-                                            break;
-                                        }
+                                            gymCustomer.displayCoahInfo();
 
-                                    }
-                                    case(4):
-                                        System.out.println("Enter the date : (yyyy-MM-dd) ");
-                                
-                                                Scanner scan = new Scanner(System.in);
-                                        
-                                                System.out.print("Enter a date (yyyy-MM-dd): ");
-                                                String dateString = scan.next();
-                                        
-                                                SimpleDateFormat dateF = new SimpleDateFormat("yyyy-MM-dd");
-                                        
-                                                try {
-                                                    Date date = dateF.parse(dateString);
-                                        
-                                                    System.out.println("Parsed Date: " + date);
-                                        
-                                        
-                                                } catch (ParseException e) {
-                                                    System.out.println("Invalid date format. Please use yyyy-MM-dd.");
-                                                    e.printStackTrace();
-                                                } finally {
-                                                    scanner.close();
-                                        }
+                                            System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
+                                            answer = scanner.nextLine();
+                                            if(answer.equals("yes") || answer.equals("Yes")){
                                             
+                                            }
+                                            else{
+                                                break;
+                                            }
 
-                                        System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
-                                        answer = scanner.nextLine();
-                                        if(answer.equals("yes") || answer.equals("Yes")){
-                                            continue;
                                         }
-                                        else{
-                                            break;
-                                        }
-                                    case(3): //Membership plan
-                                    {
+                                        case(2):{
+                                            gymCustomer.displayEquipments();
+                                            System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
+                                            answer = scanner.nextLine();
+                                            if(answer.equals("yes") || answer.equals("Yes")){
+                                                
+                                            }
+                                            else{
+                                                break;
+                                            }
 
-                                        gymCustomer.displayMembershiPDetails();
-                                      System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
-                                        answer = scanner.nextLine();
-                                        if(answer.equals("yes") || answer.equals("Yes")){
-                                            continue;
                                         }
-                                        else{
-                                            break;
-                                        }   
-                                    }
-                                            default:
-                                            System.out.println("Invalid choice");                                   
-                                
+                                        case(5):{
+                                            gymCustomer.DisplayHowManyKilosNeededToReduce();
+                                            System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
+                                            answer = scanner.nextLine();
+                                            if(answer.equals("yes") || answer.equals("Yes"))
+                                            {
+                                                
+                                            }
+                                            else{
+                                                break;
+                                            }
 
+                                        }
+
+                                        case(4):
+                                            System.out.println("Enter the date : (yyyy-MM-dd) ");
+                                    
+                                                    Scanner scan = new Scanner(System.in);
+                                            
+                                                    String dateString = scan.next();
+                                            
+                                                    SimpleDateFormat dateF = new SimpleDateFormat("yyyy-MM-dd");
+                                            
+                                                    try {
+                                                        Date date = dateF.parse(dateString);
+                                            
+                                                        System.out.println("Parsed Date: " + date);
+                                            
+                                            
+                                                    } catch (ParseException e) {
+                                                        System.out.println("Invalid date format. Please use yyyy-MM-dd.");
+                                                        e.printStackTrace();
+                                                    } finally {
+                                                        scanner.close();
+                                            
+                                            }
+                                        case(3): //Membership plan
+                                        {
+
+                                            gymCustomer.displayMembershiPDetails();
+                                          System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
+                                            answer = scanner.nextLine();
+                                            if(answer.equals("yes") || answer.equals("Yes")){
+                                                
+                                            }
+                                            else{
+                                                break;
+                                            }   
+                                        }
+                                                default:
+                                                System.out.println("Invalid choice");                                   
+                                    
+
+                                    
                                 }
+
                             }
-
+                            else
+                            {
+                                System.out.println("User not found!");
+                            }
                         }
-                        
-
                         break;
                     }
                     case 3:
                     {
                         System.out.println("Enter your ID: ");
-                        int id = scanner.nextInt();
-                        scanner.nextLine();
+                        try (Scanner cans2 = new Scanner(System.in)) {
+                            int id = cans2.nextInt();
+                            scanner.nextLine();
 
-                        System.out.println("Enter your name: ");
-                        String name = scanner.nextLine();
+                            System.out.println("Enter your name: ");
+                            String name = cans2.nextLine();
 
-                        System.out.println("Enter your address: ");
-                        String address = scanner.nextLine();
+                            System.out.println("Enter your address: ");
+                            String address = cans2.nextLine();
 
-                        System.out.println("Enter your gender: ");
-                        String gender = scanner.nextLine();
+                            System.out.println("Enter your gender: ");
+                            String gender = cans2.nextLine();
 
-                        System.out.println("Enter your phone number: ");
-                        String phoneNumber = scanner.nextLine();
-
-
-                        System.out.println("Enter your email: ");
-                        String email = scanner.nextLine();
-
-                        System.out.println("Enter your password: ");
-                        String CoachPassword = scanner.nextLine();
+                            System.out.println("Enter your phone number: ");
+                            String phoneNumber = cans2.nextLine();
 
 
-                        Coach newCoach = Coach.registerCoach(id, name, address, gender
-                        , email, phoneNumber, choice, CoachPassword);
-                        if (newCoach != null)
-                         {
-                            System.out.println("Registration successful!");
+                            System.out.println("Enter your email: ");
+                            String email = cans2.nextLine();
+
+                            System.out.println("Enter your password: ");
+                            String CoachPassword = cans2.nextLine();
+
+
+                            Coach newCoach = Coach.registerCoach(id, name, address, gender
+                            , email, phoneNumber, choice, CoachPassword);
+                            if (newCoach != null)
+                             {
+                                System.out.println("Registration successful!");
+                            }
+                            else {
+                                System.out.println("Registration failed. User with the same email already exists.");
+                                
+                            }
                         }
-                        else {
-                            System.out.println("Registration failed. User with the same email already exists.");
-                            continue;
-                        }
-
                         break;
                     }
 
@@ -264,9 +320,6 @@ public class Main
                             System.out.println("Coach login successful!");
                             System.out.println("#-------------------------#");
 
-                            while(true)
-                            {
-                                String answer2;
                                 System.out.println("1. Show your customers.");
                                 System.out.println("2. Get the inbody history of any of your customers.");
                                 System.out.println("3. Get all the details of a customer by his name..");
@@ -278,16 +331,7 @@ public class Main
                                  case 1:
                                  {
                                         gymCoach.ListAllCustomers(gymCoach.getID());
-                                          System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
-                                        answer2 = scanner.nextLine();
-                                        if(answer2.equals("yes") || answer2.equals("Yes"))
-                                        {
-                                            continue;
-                                        }
-                                        else
-                                        {
-                                            break;
-                                        }   
+                                        break;
 
 
                                  }
@@ -298,15 +342,7 @@ public class Main
                                         int id=sca.nextInt();
                                         gymCoach.getInBodyHistory(id);
                                     }
-                                    System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
-                                    answer2 = scanner.nextLine();
-                                    if(answer2.equals("yes") || answer2.equals("Yes"))
-                                        {
-                                            continue;
-                                        }
-                                        else{
-                                            break;
-                                        }   
+                                    break;
                                     
                              
                                 }
@@ -318,36 +354,21 @@ public class Main
                                         String name=sca.nextLine();
                                         gymCoach.getCustomerByName(name);
                                     }
-                                    System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
-                                    answer2 = scanner.nextLine();
-                                    if(answer2.equals("yes") || answer2.equals("Yes"))
-                                    {
-                                        continue;
-                                    }
-                                    else{
-                                        break;
-                                    }   
+                       
+                                       
                                 }
                                     
                                 case 4:
                                 {
                                     System.out.println("Enter target gender : ");
-                                    try (Scanner sca = new Scanner(System.in)) {
-                                        String gender=sca.nextLine();
+                                    try (Scanner sca = new Scanner(System.in)){
+                                    Scanner cans = new Scanner(System.in); {
+                                        String gender=cans.nextLine();
                                         gymCoach.getCustomersByGender(gender);
+                                        cans.close();
                                     }
-                                    System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
-                                    answer2 = scanner.nextLine();
-
-                                    if(answer2.equals("yes") || answer2.equals("Yes"))
-                                    {
-                                        continue;
-                                    }
-                                    else{
-                                        break;
-                                    } 
                                     
-                                    
+                                }
                                 }
                                 default:
                                 System.out.println("Invalid choice");
@@ -357,7 +378,7 @@ public class Main
                                 }
 
 
-                            }
+                            
 
 
                         }
@@ -378,8 +399,7 @@ public class Main
 
                             System.out.println("Successful Login !");
                             System.out.println("__________________________");
-                                while(true)
-                                {
+
                                 System.out.println("1. Add Customer. ");
                                 System.out.println("2. Edit Customer. ");
                                 System.out.println("3. Remove Customer.");
@@ -433,16 +453,8 @@ public class Main
                             Gym.getCustomers().add(newCustomer);
                             System.out.println("Registration successful!");
                             System.out.println("Registration failed. User with the same email already exists.");
-                      System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
-                      String answer2 = scanner.nextLine();
-                                    if(answer2.equals("yes") || answer2.equals("Yes"))
-                                    {
-                                        continue;
-                                    }
-                                    else{
-                                        break;
-                                    }
-                                }
+                      
+                        }
                              
                         case 2:
                         {
@@ -522,7 +534,7 @@ public class Main
                                         break;
                                     }
 
-                }//switch end
+                }
 
       }
 
@@ -601,15 +613,8 @@ public class Main
                        
                             Gym.getCoaches().add(newCoach);
                             System.out.println("Registration successful!");
-                      System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
-                      String answer2 = scanner.nextLine();
-                                    if(answer2.equals("yes") || answer2.equals("Yes"))
-                                    {
-                                        continue;
-                                    }
-                                    else{
-                                        break;
-                                    }
+
+                                    
 
 
                          } 
@@ -749,15 +754,7 @@ public class Main
                         int quantity = scanner.nextInt();
                         Equipment equipment =new Equipment(name, code, quantity);
                         Gym.getEquipments().add(equipment);
-                         System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
-                                      String answer2 = scanner.nextLine();
-                                    if(answer2.equals("yes") || answer2.equals("Yes"))
-                                    {
-                                        continue;
-                                    }
-                                    else{
-                                        break;
-                                    }
+                    
                     
                     }
                     case 8:
@@ -812,15 +809,7 @@ public class Main
                             }
                                 }
                         }
-                        System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
-                                      String answer2 = scanner.nextLine();
-                                    if(answer2.equals("yes") || answer2.equals("Yes"))
-                                    {
-                                        continue;
-                                    }
-                                    else{
-                                        break;
-                                    }  
+                        
                         }
                         case 9:
                         {
@@ -859,15 +848,7 @@ public class Main
                            System.out.println("Enter customer ID ");
                            int id = scanner.nextInt();
                            admin.displaySubscriptionHistory(id);
-                           System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
-                                          String answer2 = scanner.nextLine();
-                                        if(answer2.equals("yes") || answer2.equals("Yes"))
-                                        {
-                                            continue;
-                                        }
-                                        else{
-                                            break;
-                                        }
+                           
                         } 
                         case 11:
                         {
@@ -877,15 +858,7 @@ public class Main
                             String month = scanner.nextLine();
                             int year = scanner.nextInt();
                             admin.CustomerByGivenDate(month,year);
-                             System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
-                                          String answer2 = scanner.nextLine();
-                                        if(answer2.equals("yes") || answer2.equals("Yes"))
-                                        {
-                                            continue;
-                                        }
-                                        else{
-                                            break;
-                                        }  
+                             
                         }   
 
                         case 12:
@@ -894,53 +867,35 @@ public class Main
                                  System.out.println("Enter the date and the year ex.:(1,dec,2004)");
                                 System.out.println("Enter the date : (yyyy-MM-dd) ");
                                 
-                                                Scanner scan = new Scanner(System.in);
+                                                try (Scanner scan = new Scanner(System.in)) {
+                                                    System.out.print("Enter a date (yyyy-MM-dd): ");
+                                                    String dateString = scan.next();
+                              
+                                                    SimpleDateFormat dateF = new SimpleDateFormat("yyyy-MM-dd");
+                              
+                                                    try {
+                                                        Date date = dateF.parse(dateString);
+                              
+                                                        System.out.println("Parsed Date: " + date);
+                              
+                                                        admin.CustomerByGivenDate(date);
+                              
+                                                    } catch (ParseException e) {
+                                                        System.out.println("Invalid date format. Please use yyyy-MM-dd.");
+                                                        e.printStackTrace();
+                                                    } finally {
+                                                        scanner.close();
+                              }
+                                                }
                                         
-                                                System.out.print("Enter a date (yyyy-MM-dd): ");
-                                                String dateString = scan.next();
-                                        
-                                                SimpleDateFormat dateF = new SimpleDateFormat("yyyy-MM-dd");
-                                        
-                                                try {
-                                                    Date date = dateF.parse(dateString);
-                                        
-                                                    System.out.println("Parsed Date: " + date);
-                                        
-                                                    admin.CustomerByGivenDate(date);
-                                        
-                                                } catch (ParseException e) {
-                                                    System.out.println("Invalid date format. Please use yyyy-MM-dd.");
-                                                    e.printStackTrace();
-                                                } finally {
-                                                    scanner.close();
-                                        }
-
-
-
-                             System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
-                                          String answer2 = scanner.nextLine();
-                                        if(answer2.equals("yes") || answer2.equals("Yes"))
-                                        {
-                                            continue;
-                                        }
-                                        else{
-                                            break;
-                                        }  
+                                      
                         }
                         case 13:
                         {
                             System.out.println("Enter the coach ID ");
                               int Id = scanner.nextInt();
                              admin.displayCustomersByCoach(Id);
-                              System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
-                                          String answer2 = scanner.nextLine();
-                                        if(answer2.equals("yes") || answer2.equals("Yes"))
-                                        {
-                                            continue;
-                                        }
-                                        else{
-                                            break;
-                                        }
+                            
 
 
 
@@ -952,30 +907,14 @@ public class Main
                             String month = scanner.nextLine();
                             int year = scanner.nextInt();
                             admin.monthlyIncome(month, year);
-                             System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
-                                          String answer2 = scanner.nextLine();
-                                        if(answer2.equals("yes") || answer2.equals("Yes"))
-                                        {
-                                            continue;
-                                        }
-                                        else{
-                                            break;
-                                        }
+                            
 
                         }
                                               
                         case 15:
                         {
                                 admin.CoachesAccordingMostPopular();     
-                             System.out.println("Do you want to continue? (Type Yes or yes to continue. Else will go back to main menu)");
-                                          String answer2 = scanner.nextLine();
-                                        if(answer2.equals("yes") || answer2.equals("Yes"))
-                                        {
-                                            continue;
-                                        }
-                                        else{
-                                            break;
-                                        }
+                            
                             }
                             default:
                     System.out.println("Invalid choice");
@@ -985,7 +924,8 @@ public class Main
                     }
                    
                     System.out.println("Invalid choice. Please enter a valid option.");
-                }
+
+                
                 
       }
     }
@@ -993,21 +933,23 @@ public class Main
     System.out.println("Invalid choice");
     break;
 
+
 }
-main.write(Gym.tString(),"outputdata.txt");
-            }
-            }
 
-        }
-         
+       main.write(Gym.tString(),"outputdata.txt");//write function
+
+      System.out.println("Do you want to continue? (Type  yes to continue. Else will go back to main menu)");
+                Scanner scanner2=new Scanner(System.in);
+                Choicefinal  = scanner2.nextLine(); 
+                scanner2.close();
+                                }//while bracket       
+                                while(Choicefinal.equals("yes"));
+                                
+                            }////  general Main pracket
+
+     
 
 
-
-
-    
-
-    // System.out.println("Thank you for using the Gym Management System. Goodbye!");
-    
 public  void read(String filepath) throws FileNotFoundException
      {
 
@@ -1076,6 +1018,7 @@ public  void read(String filepath) throws FileNotFoundException
                     Date dateofinbody = dateFormat.parse(stringdateofinbody);
 
                     Membership membership = new Membership(startdate, enddate, monthlyPlan, numMonthsRegistered, pric);
+
                     InBody inbody = new InBody(CustomerId, Customername, Customeraddress, Customergender, Customeremail, Customerphonenumber,
                             dateofinbody, height, totalWeight, body_Fat_Mass, minerals, total_Body_Water, protein);
                      ArrayList<InBody> inBodyList = new ArrayList<>();
@@ -1084,7 +1027,7 @@ public  void read(String filepath) throws FileNotFoundException
                         Equipment equipment = new Equipment(equipmentname, equipmentcode, Equipmentquantity);
                         
                         Coach coach = new Coach(CoachId, Coachname, Coachaddress, Coachgender,
-                        Coachemail, Coachphonenumber, workinghours,Coachpassword);
+                        Coachemail, Coachphonenumber, workinghours,Coachpassword,null);
                         Customer customer = new Customer(CustomerId, Customername, Customeraddress, Customergender, Customeremail,
                         Customerphonenumber, subscription,inBodyList, coach, membership,Customerpassword);
                         
@@ -1092,6 +1035,12 @@ public  void read(String filepath) throws FileNotFoundException
                     admin.addCoach(coach);
                     admin.addEquipment(equipment);
                     admin.addSubscription(subscription);
+                    if (Gym.getMemberships() == null) {
+                        // If it's null, create a new list
+                       ArrayList <Membership>existingMemberships = new ArrayList<>();
+                        // Set the new list to the Gym object
+                        Gym.setMemberships(existingMemberships);
+                    }
                     
 
                 } catch (NumberFormatException | ParseException e) {
