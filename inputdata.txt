@@ -5,16 +5,10 @@ Male
 john.doe@email.com
 5551234
 254210pas
-201
 Coach Smith
-456 Oak Avenue
-Female
-coach.smith@email.com
-5555678
-16465312pas
 2022-01-01
 2022-12-31
-Monthly
+6 days per week
 6
 100
 2022-01-15
@@ -25,27 +19,28 @@ Monthly
 50
 60
 25
-40
+201
+Coach Smith
+456 Oak Avenue
+Female
+coach.smith@email.com
+5555678
+16465312pas
+7
 Treadmill
 40
 2
-102
+210
 Jane Doe
 789 Elm Street
 Female
 jane.doe@email.com
 5559876
 25425532540pas
-203
 Coach Johnson
-789BirchAvenue
-Male
-coach.johnson@email.com
-5554321 
-85421
 2022-02-01
 2022-12-01
-Yearly
+3 days per week 
 12
 200
 2022-02-15
@@ -56,7 +51,14 @@ Yearly
 45
 55
 30
-35
+203
+Coach Johnson
+789BirchAvenue
+Male
+coach.johnson@email.com
+5554321 
+85421pas
+8
 Dumbbells
 30
 5
