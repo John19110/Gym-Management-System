@@ -21,7 +21,8 @@ public class Subscription {
         return CustomerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(int customerId)
+    {
         CustomerId = customerId;
     }
 

@@ -1,6 +1,5 @@
 package Mygym;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 class Coach extends Person 
@@ -21,6 +20,7 @@ class Coach extends Person
         CoacheCustomers = coacheCustomers;
     }
 
+
     public int getWorkingHours() {
 
         return WorkingHours;
@@ -31,75 +31,67 @@ class Coach extends Person
         WorkingHours = workingHours;
     }
 
-    @Override
+    
     public int getID() 
     {
             return ID;
     }
     
-    @Override
     public void setID(int iD) {
       
         ID=iD;
     }
     
-    @Override
+    
     public String getPhoneNumber() {
 
             return PhoneNumber;
     }
     
-    @Override
+    
     public void SetPhoneNumber(String phoneNumber)
      {
 
         PhoneNumber=phoneNumber;
     }
     
-    @Override
     public String getName() 
     {
         
         return Name;
     }
     
-    @Override
     public void setName(String name) 
     {
     Name=name;  
 
     }
     
-    @Override
     public String getAddress() 
     {
         return Address;    
     }
     
-    @Override
     public void setAddress(String address) {
         
         Address=address;
     }
     
-    @Override
     public String getGender() {
        
         return Gender;
     }
     
-    @Override
     public void setGender(String gender) 
     {
         Gender=gender;
     }
     
-    @Override
+    
     public String getEmail() {
         return Email;
     }
     
-    @Override
     public void setEmail(String email) {
       Email=email;
     }
@@ -111,7 +103,14 @@ class Coach extends Person
     public void setPassword(String password) {
         this.password = password;
     }
-
+    public ArrayList<Customer> getCoacheCustomers() {
+        return CoacheCustomers;
+    }
+    
+    public void setCoacheCustomers(ArrayList<Customer> coacheCustomers) {
+        CoacheCustomers = coacheCustomers;
+    }
+    
     public void ListAllCustomers(int CoachId) {
             System.out.println("Coach " + this.getName() + "Has customers : ");
             for (Customer customer : Gym.getCustomers()) {
@@ -126,54 +125,132 @@ class Coach extends Person
                 }
             }
         }
-    public List<InBody> getInBodyHistory(int CustomerId) 
+    public void getInBodyHistory(int CustomerId) 
     {
         for (Customer customer : Gym.getCustomers()) 
         {
             if(CustomerId==customer.getID())
             {
-                return customer.getInBodies();
+                for(InBody customerinbodie: customer.getInBodies())
+                {
+                    System.out.println("Date of InBody: " +customerinbodie.getDateOfInBody());
+                    System.out.println("Height: " + customerinbodie.getHeight() + " cm");
+                    System.out.println("Total Weight: " + customerinbodie.getTotalWeight() + " kg");
+                    System.out.println("Body Fat Mass: " + customerinbodie.getBodyFatMass() + " kg");
+                    System.out.println("Minerals: " +customerinbodie. getMinerals() + " kg");
+                    System.out.println("Total Body Water: " + customerinbodie.getTotalBodyWater() + " kg");
+                    System.out.println("Protein: " +customerinbodie. getProtein() + " kg");
+                }
+
             }
 
         }
-        return null;
     }
-    public Customer getCustomerByName(String customerName)
+    public void getCustomerByName(String customerName)
      {
-        for (Customer customer : Gym.getCustomers()) {
-            if (customer.getName().equals(customerName)) {
-                return customer;
+        for (Customer customer : Gym.getCustomers())
+         {
+            if (customer.getName().equals(customerName)) 
+            {
+                
+                System.out.println("Custmer ID"+customer.getID());
+                System.out.println("Custmer name"+customer.getName());
+                System.out.println("Custmer gender"+customer.getGender());
+                System.out.println("Custmer Email"+customer.getEmail());
+                System.out.println("Custmer Phone Number"+customer.getPhoneNumber());
             }
         }
-        return null;
+
     }
 
-    public List<Customer> getCustomersByGender(String targetGender) 
+    public void getCustomersByGender(String targetGender) 
     {
-        List<Customer> result = new ArrayList<>();
-        for (Customer customer : Gym.getCustomers()) {
-            if (customer.getGender().equalsIgnoreCase(targetGender)) {
+        ArrayList<Customer> result = new ArrayList<>();
+        for (Customer customer : CoacheCustomers) {
+            if (customer.getGender().equalsIgnoreCase(targetGender))
+             {
                 result.add(customer);
             }
+
         }
-        return result;
+            for(Customer customer : result)
+            {
+                System.out.println("Customer name"+customer.getName());
+            }
+
+
     }
-    public static Coach registerCoach(int iD, String name, String address, String gender, String email,
-    String phoneNumber ,int workingHours, String password )
+    public Coach  register()
 {
 
-for (Coach coach : Gym.getCoaches())
+    Scanner scanner =new Scanner(System.in);
+    System.out.println("Enter your ID: ");
+    int coachid = scanner.nextInt();
+    scanner.nextLine();
+    do 
+    {
 
-{
-if (coach.getEmail().equals(email))
-{
-return null; // Registration failed since a user with the same email already exists
-}
+        for(Coach coach:Gym.getCoaches())
+        
+        {
+            if ( coach.getID()==coachid)
+            {
+                coachid=0;
+                
+            }
+        }
+        if (coachid==0)
+        {
+            System.out.println("Their are another Customer with this ID , please enter another ID");
 
-}
-return  new Coach(iD, name, address, gender, email, phoneNumber, workingHours, password, null);
+            coachid = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
 
 
+        }
+    }
+        while (coachid==0);
+
+    System.out.println("Enter your name: ");
+    String name = scanner.nextLine();
+
+    System.out.println("Enter your address: ");
+    String address = scanner.nextLine();
+
+    System.out.println("Enter your gender: ");
+    String gender = scanner.nextLine();
+
+    System.out.println("Enter your phone number: ");
+    String phoneNumber = scanner.nextLine();
+    
+    System.out.println("Enter your email: ");
+    String email = scanner.nextLine();
+    
+    System.out.println("Enter your password: ");
+    String CoachPassword = scanner.nextLine();
+
+    System.out.println("Enter your working hour per day  (Max 10): ");
+    int  workinghours = scanner.nextInt();
+    if   (workinghours>10||workinghours<=0);
+    {
+        do {
+
+            System.out.println("enter valid number");
+            workinghours = scanner.nextInt();
+        }
+        while(workinghours>10||workinghours<=0);
+      
+    }
+
+    ArrayList<Customer>coachCustomerswhenRegisterd=new ArrayList<>();
+
+    Coach coach=new Coach(coachid, name, address, gender, email, phoneNumber,
+     workinghours, CoachPassword, coachCustomerswhenRegisterd);
+
+        Gym.getCoaches().add(coach);
+        System.out.println("Registeration successful !");
+        scanner.close();   
+    return coach;
 }
 
 public static  Coach LoginCoach(String email, String password) {
@@ -194,6 +271,7 @@ public String toString() {
            "\nGender: " + getGender() +
            "\nEmail: " + getEmail() +
            "\nPhone Number: " + getPhoneNumber() +
+           "\nCoach Customers:"+NamesOfCoachCustomers()+
            "\nWorking Hours: " + getWorkingHours();
     // Add any other relevant information you want to include
 }
@@ -221,13 +299,18 @@ public static Coach findCoachByName(String coachName) {
     }
     return null;
 }
+private ArrayList<String>NamesOfCoachCustomers()
+{
+    ArrayList<String>Customersnames=new ArrayList<>();
+for(Customer customer:CoacheCustomers)
 
-public ArrayList<Customer> getCoacheCustomers() {
-    return CoacheCustomers;
-}
+{
+    Customersnames.add(customer.getName());
+}    
 
-public void setCoacheCustomers(ArrayList<Customer> coacheCustomers) {
-    CoacheCustomers = coacheCustomers;
-}
+
+    return Customersnames;
+} 
+
 
 }

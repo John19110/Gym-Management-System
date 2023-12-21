@@ -15,27 +15,81 @@ public abstract   class Person
         PhoneNumber = phoneNumber;
     }
 
-    public  abstract int getID();
+    public int getID() {
+        return ID;
+    }
 
-    public  abstract void setID(int iD);
+    public void setID(int iD) {
+        ID = iD;
+    }
 
-    public abstract String getPhoneNumber();
+    public String getName() {
+        return Name;
+    }
 
-    public abstract void SetPhoneNumber(String phoneNumber);
+    public void setName(String name) {
+        Name = name;
+    }
 
-    public abstract String getName();
+    public String getAddress() {
+        return Address;
+    }
 
-    public abstract void setName(String name);
+    public void setAddress(String address) {
+        Address = address;
+    }
 
-    public abstract String getAddress();
+    public String getGender() {
+        return Gender;
+    }
 
-    public abstract  void setAddress(String address);
+    public void setGender(String gender) {
+        Gender = gender;
+    }
 
-    public abstract String getGender();
+    public String getEmail() {
+        return Email;
+    }
 
-    public  abstract void setGender(String gender);
+    public void setEmail(String email) {
+        Email = email;
+    }
 
-    public abstract String getEmail();
+    // public String getPhoneNumber() {
+    //     return PhoneNumber;
+    // }
 
-    public abstract void setEmail(String email);    
+    // public void setPhoneNumber(String phoneNumber) {
+    //     PhoneNumber = phoneNumber;
+    // }
+    // public void Register() throws ParseException
+
+    // {
+    //     Scanner scanner =new Scanner(System.in);
+    //     System.out.println("Enter your ID: ");
+    //     int id = scanner.nextInt();
+    //     scanner.nextLine();
+
+    //     System.out.println("Enter your name: ");
+    //     String name = scanner.nextLine();
+
+    //     System.out.println("Enter your address: ");
+    //     String address = scanner.nextLine();
+
+    //     System.out.println("Enter your gender: ");
+    //     String gender = scanner.nextLine();
+
+    //     System.out.println("Enter your phone number: ");
+    //     String phoneNumber = scanner.nextLine();
+        
+    //     System.out.println("Enter your email: ");
+    //     String email = scanner.nextLine();
+        
+    //     System.out.println("Enter your password: ");
+    //     String customerPassword = scanner.nextLine();
+    //     scanner.close();
+
+    // }
+    
+
 }

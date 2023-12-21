@@ -1,7 +1,12 @@
 package Mygym;
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.io.*;
+import java.util.Scanner;
+
+
+
 
 
 
@@ -14,6 +19,7 @@ public class Customer extends Person
     private Membership membership;
     private String password;
 
+  
     public Customer(int iD, String name, String address, String gender, String email, String phoneNumber,
             Mygym.Subscription subscription, List<InBody> inBodies, Coach assignedCoach, Membership membership,
             String password) {
@@ -24,75 +30,65 @@ public class Customer extends Person
         this.membership = membership;
         this.password = password;
     }
-    @Override
+
     public int getID() 
     {
             return ID;
     }
     
-    @Override
     public void setID(int iD) {
       
         ID=iD;
     }
     
-    @Override
     public String getPhoneNumber() {
 
             return PhoneNumber;
     }
     
-    @Override
     public void SetPhoneNumber(String phoneNumber)
      {
 
         PhoneNumber=phoneNumber;
     }
     
-    @Override
     public String getName() 
     {
         
         return Name;
     }
     
-    @Override
     public void setName(String name) 
     {
     Name=name;  
 
     }
     
-    @Override
     public String getAddress() 
     {
         return Address;    
     }
     
-    @Override
     public void setAddress(String address) {
         
         Address=address;
     }
     
-    @Override
     public String getGender() {
        
         return Gender;
     }
     
-    @Override
     public void setGender(String gender) 
     {
         Gender=gender;
     }
     
-    @Override
     public String getEmail() {
         return Email;
     }
     
-    @Override
+    
     public void setEmail(String email) {
       Email=email;
     }
@@ -161,23 +157,18 @@ public class Customer extends Person
        public  void displayEquipments()
 
        {
-            try
-{
-    FileWriter CustomerFile=new FileWriter("test.txt");
+           
+
     for (Equipment equipment:Gym.getEquipments())
     {
-        CustomerFile.write("Equipment Name: " + equipment.getName());
-        CustomerFile.write("Equipment Code: " + equipment.getCode());
-        CustomerFile.write("Equipment Quantity: " + equipment.getQuantity());
+        System.out.println("Equipment Name: " + equipment.getName());
+        System.out.println("Equipment Code: " + equipment.getCode());
+        System.out.println("Equipment Quantity: " + equipment.getQuantity());
         
-        CustomerFile.close();
     }
-    }
+   
 
-    catch( Exception e)
-    {
-        
-    }
+    
 
 }
 
@@ -190,9 +181,14 @@ public class Customer extends Person
             System.out.println("The price is : "+membership.getPrice());
             System.out.println("The monthly plan is : "+membership.getMonthlyPlan());
     }
-    public void displayInbodyInformation(Date date) 
+    public void displayInbodyInformation() throws ParseException 
     
-        {
+        { 
+            System.out.println("Enter the date : (yyyy-MM-dd) ");
+            Scanner scanner=new Scanner(System.in);
+                                        String dateString = scanner.nextLine();
+                                        SimpleDateFormat dateF = new SimpleDateFormat("yyyy-MM-dd");
+                                        Date date = dateF.parse(dateString);
             for (InBody inbody: getInBodies())
              {
                 if (inbody.getDateOfInBody().equals(date))
@@ -207,68 +203,173 @@ public class Customer extends Person
              }
 
             }
-
+            scanner.close();
         }
     public void DisplayHowManyKilosNeededToReduce()
     { 
         
-        double leanBodyMass = InBodies.get(InBodies.size()).getTotalWeight() - InBodies.get(InBodies.size()). getBodyFatMass();
+        double leanBodyMass = InBodies.get(InBodies.size()-1).getTotalWeight() - InBodies.get(InBodies.size()-1). getBodyFatMass();
 
         // Step 3: Calculate estimated healthy weight (lean body mass + protein)
-        double estimatedHealthyWeight = leanBodyMass + InBodies.get(InBodies.size()).getProtein();
+        double estimatedHealthyWeight = leanBodyMass + InBodies.get(InBodies.size()-1).getProtein();
 
         // Step 4: Calculate excess weight
-        double excessWeight = InBodies.get(InBodies.size()).getTotalWeight() - estimatedHealthyWeight;
+        double excessWeight = InBodies.get(InBodies.size()-1).getTotalWeight() - estimatedHealthyWeight;
 
-        System.out.println( "you need to reduce  "  + excessWeight+" kilos ." );
+        System.out.println( "you need to be  "  + excessWeight+" kilos from your weigh ." );
     }
-    public void Myfun(){
-        System.out.println("I'm customer ");
+  
 
+public Customer Register() throws ParseException
+{
+
+    Scanner scanner =new Scanner(System.in);
+    System.out.println("Enter your ID: ");
+    int customerid = scanner.nextInt();
+    scanner.nextLine();
+    do 
+    {
+
+        for(Customer customer:Gym.getCustomers())
+        
+        {
+            if ( customer.getID()==customerid)
+            {
+                customerid=0;
+                
+            }
+        }
+        if (customerid==0)
+        {
+            System.out.println("Their are another Customer with this ID , please enter another ID");
+
+            customerid = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+
+
+        }
     }
-    public void suii(){
-        System.out.println("the only customer ");
+        while (customerid==0);
+
+    System.out.println("Enter your name: ");
+    String name = scanner.nextLine();
+
+    System.out.println("Enter your address: ");
+    String address = scanner.nextLine();
+
+    System.out.println("Enter your gender: ");
+    String gender = scanner.nextLine();
+
+    System.out.println("Enter your phone number: ");
+    String phoneNumber = scanner.nextLine();
+    
+    System.out.println("Enter your email: ");
+    String email = scanner.nextLine();
+    
+    System.out.println("Enter your password: ");
+    String customerPassword = scanner.nextLine();
+    
+
+    System.out.println("Enter your coach id: ");
+    int  coachid =Integer.parseInt(scanner.nextLine());
+
+    Coach assignedCoach=null;
+    do 
+    {
+
+        for(Coach coach:Gym.getCoaches())
+        
+        {
+            if ( coach.getID()==coachid)
+            {
+                assignedCoach=coach;
+                
+            }
+        }
+        if (assignedCoach==null)
+        {
+            System.out.println("Enter valid ID");
+            coachid = Integer.parseInt(scanner.nextLine());
+            scanner.nextLine(); // Consume the newline character
+
+
+        }
     }
-    public static Customer register(int iD, String name, String address, String gender, String email,
-    String phoneNumber,Subscription subscription,Coach assignedCoach,
-    Membership membership, String password )
-{
-for (Customer customer : Gym.getCustomers())
-{
-if (customer.getEmail().equals(email))
-{
-return null; // Registration failed since a user with the same email already exists
-}
-}
-try {
+        while (assignedCoach==null);
 
-if (assignedCoach != null) {
+                            System.out.println("Enter your start Date: ");
+                            String dateString = scanner.next();
+                            SimpleDateFormat dateF = new SimpleDateFormat("yyyy-MM-dd");
+                            Date startdate = dateF.parse(dateString);
+                            
+                        
+                             System.out.println("Enter your end Date: ");
+                             String dateString2 = scanner.next();
+                             SimpleDateFormat Date = new SimpleDateFormat("yyyy-MM-dd");
+                            Date endDate = Date.parse(dateString2);
+                          
 
-int currentCustomers = 0;
+                                                
+                                               
+                            System.out.println(" ------- monthly plan --------");
+                            System.out.println(" Enter 1 if you want 3 days per week(100$) or 2 if you want 6 days per week)(170$)");
 
-for (Customer customer : Gym.getCustomers()) {
-if (customer.getAssignedCoach().equals(assignedCoach))
- {
-currentCustomers++;
-}
-}
+                            int monthlyplanchoice=scanner.nextInt();
+                            String monthlyplan=null;
+                            int price =0;
+                            do {
 
-if (currentCustomers >= 10) {
-throw new IllegalStateException("The coach cannot have more than 10 customers.");
-}
-}
+                                if (monthlyplanchoice==1)
+                                {
+                                    monthlyplan =" 3 days per week ";
+                                    price = 100;
+
+                                }
+                            else if (monthlyplanchoice==2)
+                            {
+                                monthlyplan =" 6 days per week ";
+                                 price = 170;
+                            }
+                            else
+                            {
+                                System.out.println("Invalid number ");
+                                
+                            }
+                        }
+                        while (monthlyplan==null&&price==0);
+                            
 
 
-      
-return new Customer(iD, name, address, gender, email, phoneNumber,
-subscription, null, assignedCoach, membership, password);
+                            System.out.println(" Enter number of monthes : ");
+                            int numberofmonthes =Integer.parseInt(scanner.nextLine());
+
+
+                            System.out.println("Enter today's  Date: ");
+                            String dateString3 = scanner.next();
+                            SimpleDateFormat datee = new SimpleDateFormat("yyyy-MM-dd");
+                            Date DateOfSubscription = datee.parse(dateString3);
+                          
+                                 
+                            Membership membership =new Membership(startdate, endDate, monthlyplan, numberofmonthes, price);
+                            Subscription subscription=new Subscription(customerid, assignedCoach.getID(), membership, DateOfSubscription);
+                            Customer newCustomer = new Customer(customerid, name, address, gender, email, phoneNumber,
+                            subscription, null,assignedCoach, membership, customerPassword);
+
+
+                            
+                            Gym.getCustomers().add(newCustomer);
+                            Gym.getMemberships().add(membership);
+                            Gym.getSubscriptions().add(subscription);
+                            assignedCoach.getCoacheCustomers().add(newCustomer);
+                            System.out.println("Registeration Succeeded!");
+                            System.out.println("Approved !");
 
 
 
-} catch (IllegalStateException e ) {
-System.err.println("Error during registration: " + e.getMessage());
-return null;
-}
+
+                            
+                            scanner.close();   
+                            return newCustomer;
 }
 
     
@@ -295,8 +396,8 @@ return "Customer ID: " + getID() +
                    "\nPhone Number: " + getPhoneNumber() +
                    "\nSubscription: " + getSubscription() +
                    "\nInBodies: " + getInBodies() +
-                   "\nAssigned Coach: " + assignedCoach +
-                   "\nMembership: " + membership +
+                   "\nAssigned Coach: " + assignedCoach.getName() +
+                   "\nMembership: " + membership.getMonthlyPlan() +
                    "\nPassword: " + password;    
     }
 
