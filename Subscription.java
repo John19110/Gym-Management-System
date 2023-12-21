@@ -1,9 +1,10 @@
 package Mygym;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Subscription {
+public class Subscription implements Serializable {
 
     protected int CustomerId;
     protected int CoachId;
@@ -21,8 +22,7 @@ public class Subscription {
         return CustomerId;
     }
 
-    public void setCustomerId(int customerId)
-    {
+    public void setCustomerId(int customerId) {
         CustomerId = customerId;
     }
 

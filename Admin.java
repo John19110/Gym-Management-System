@@ -31,18 +31,13 @@ public class Admin implements Serializable
     {
         Gym.getCustomers().add(customer);
     }
-    public void removeCustomer(Customer customer)
-    {
-        Gym.getCustomers().remove(customer);
+    public void removeCustomer(String customerName) {
+        Customer.removeCustomerByName(customerName);
     }
 
     public void addCoach(Coach coach) 
     {
         Gym.getCoaches().add(coach);
-    }
-    public void removeCoach(Coach coach)
-    {
-        Gym.getCoaches().remove(coach);
     }
 
     public void addEquipment(Equipment equipment)
@@ -53,6 +48,9 @@ public class Admin implements Serializable
     public void removeEquipment(Equipment equipment)
     {
         Gym.getEquipments().remove(equipment);
+    }
+        public void removeCoach(String coachName) {
+        Coach.removeCoachByName(coachName);
     }
 
                 //Edit Customer Functions
@@ -139,11 +137,78 @@ public class Admin implements Serializable
           return false;
 
   }
-    public void editEquipment(Gym gym, Equipment equipment, String newEquipmentName, int newQuantity) 
+    public void editEquipment()
     {
-        equipment.setEquepmentName(newEquipmentName);
-        equipment.setQuantity(newQuantity);
+        String  choice10;
+        int choice5;
+       
+             System.out.println("Enter the code of the equipment you wnat to edit ");
+             
+             int equipmentcode =scanner.nextInt();
+            
+
+             Equipment equipment=new Equipment(null, null, null);
+           
+             for(Equipment equipment1:Gym.getEquipments())
+             
+                 {
+                     if (equipmentcode==equipment.getCode())
+                     
+                     {
+                     equipment=equipment1;
+                    }
+                //if bracket
+
+                
+            }//for bracke
+                     System.out.println("Select attribute to edit:");
+                     System.out.println("1. Name");
+                     System.out.println("2. Code");
+                     System.out.println("3. Quantity");
+                     choice5 = scanner.nextInt();
+                     switch (choice5)
+                 {
+                
+                 case 1:
+                    {
+
+                     System.out.println("Enter new Name:");
+                     String newName = scanner.next();
+                     equipment. setEquepmentName(newName);
+                     System.out.println(" update done !");
+                     break;
+                    }
+                    case 2:
+                    {
+                        System.out.println("Enter new Code:");
+                        int newCode = scanner.nextInt();
+                        equipment.setCode(newCode);
+                        System.out.println(" update done !");
+                     break;
+                 }
+                 case 3:
+               {
+                 System.out.println("Enter new Quantity:");
+                 int newQuantity = scanner.nextInt();
+                 equipment.setQuantity(newQuantity);
+                 System.out.println(" update done !");
+                 break;
+                }
+                
+                default:
+                System.out.println("Invalid choice");
+               
+            }//switch brakcet5
+  
+  
+    
+    
+
+
+
+
         
+
     }
     public void addCoach() 
     {
@@ -172,13 +237,14 @@ public class Admin implements Serializable
         
         
     
-        Coach newCoach = Coach.registerCoach(id, name, address, gender, email, phoneNumber, id, Coachpassword);
+        Coach newCoach = new Coach(id, name, address, gender, email, phoneNumber, id, Coachpassword, null);
        
             Gym.getCoaches().add(newCoach);
-            System.out.println("Registration successful!");
+            System.out.println("New Coach has been added!");
         
     }
-    public void editCoach(){
+    public void editCoach()
+    {
         System.out.println("Enter the Coach name :");
         String name = scanner.nextLine();
    for(Coach coach:Gym.getCoaches())
@@ -270,7 +336,7 @@ System.out.println("Invalid choice");
 
     public void displaySubscriptionHistory(int customerId) 
     {
-		System.out.println("Subscriptions:");
+		System.out.println("Subscription History for Customer :  "+customerId );
 		
 		for (Subscription subscription : Gym.getSubscriptions())
          {
@@ -280,6 +346,7 @@ System.out.println("Invalid choice");
 			System.out.println("Customer : " + subscription.getCustomerId());
 			System.out.println("Coach : " + subscription.getCoachId());
 			System.out.println("The date of subescription : " + subscription.getDateOfSubscription());
+            System.out.println("The Membership : " + subscription.getMembership());
 			
 		    }
 		}
@@ -291,7 +358,7 @@ System.out.println("Invalid choice");
         for(Coach coach: Gym.getCoaches())
         {
                 if (coach.getID()==coachId)
-                System.out.println("Customers with Coach : " + coach.getName());
+                System.out.println("Customers with Coach : \n" + coach.getName());
         }
 
          for (Customer customer : Gym.getCustomers()) 
@@ -310,7 +377,8 @@ System.out.println("Invalid choice");
     public void CustomerByGivenDate(String month,int year ) 
 
     {   
-
+        
+        System.out.println("Customers subscribed in  " + month + year) ;
         for (Subscription subscription : Gym.getSubscriptions())
          {
 
@@ -319,8 +387,7 @@ System.out.println("Invalid choice");
              {
                  if (isSameMonth(subscription.getDateOfSubscription(),month)&&isSameYear(subscription.getDateOfSubscription(),year))
                    {
-                     
-                     System.out.println(subscription.getCustomerId());
+                     System.out.println("  customer ID : "+subscription.getCustomerId());
                      
                     }
                     
@@ -344,7 +411,7 @@ System.out.println("Invalid choice");
              if (subscription.getDateOfSubscription()==date)
              {
                  
-                 System.out.println(subscription.getCustomerId());
+                 System.out.println(" Customer ID : "+subscription.getCustomerId());
                      
                     }
                     
@@ -352,6 +419,11 @@ System.out.println("Invalid choice");
                 
             }
 
+
+
+
+
+            
 
     public void monthlyIncome(String month,int year) throws ParseException 
     {
@@ -407,7 +479,7 @@ System.out.println("Invalid choice");
                 }
                 
             }
-            public static boolean isSameMonth(Date date, String monthAbbreviation) throws ParseException
+    public static boolean isSameMonth(Date date, String monthAbbreviation) throws ParseException
             {
                 // Create a SimpleDateFormat with the pattern "MMM" for month abbreviation
             SimpleDateFormat dateFormat = new SimpleDateFormat("MMM");
@@ -421,8 +493,8 @@ System.out.println("Invalid choice");
             return dateMonthAbbreviation.equals(monthAbbreviation);
             }
 
-            public static boolean isSameYear(Date date, int year) throws ParseException 
-            {
+    public static boolean isSameYear(Date date, int year) throws ParseException 
+        {
                 // Create a SimpleDateFormat with the pattern "yyyy" for year
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
                 
@@ -436,7 +508,7 @@ System.out.println("Invalid choice");
 
 
             }
-            public Admin loginAdmin(String UserName, String Password)
+    public Admin loginAdmin(String UserName, String Password)
             {
                 if(UserName.equals(adminUserName) && Password.equals(adminPassword)){
                     return new Admin(gym);
@@ -446,6 +518,7 @@ System.out.println("Invalid choice");
                 return null;
             }
         }
+
 
 }
 

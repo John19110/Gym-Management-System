@@ -14,6 +14,9 @@ public Equipment(String name, int code, int quantity) {
         this.quantity = quantity;
 }
 
+public Equipment(String equipmentName, String equipmentCode, String equipmentQuantity) {
+}
+
 public String getName() {
     return name;
 }

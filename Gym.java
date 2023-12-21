@@ -2,13 +2,14 @@ package  Mygym;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Gym 
 
 {
 
     private static String name,address,phoneNumber;
     private  static List<Equipment> equipments;
-    private static List<Customer> customers;
+    public static List<Customer> customers;
     private static List<Coach> coaches;
     private static List<Subscription> subscriptions;
     private static List<Membership> memberships;
@@ -89,7 +90,8 @@ public class Gym
         Gym.memberships = memberships;
     }
   
-    public  static String tString() {
+    @Override
+    public   String toString() {
         return "Gym{" +
                 "name='" + name + '\'' +
                 ", address='" + address + '\'' +
@@ -105,4 +107,4 @@ public class Gym
 
 }
 
-    
+

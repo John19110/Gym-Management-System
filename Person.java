@@ -1,7 +1,9 @@
 package Mygym;
 
+import java.io.Serializable;
+import java.text.ParseException;
 
-public abstract   class Person 
+public abstract class Person implements Serializable
 {
     protected int ID;
     protected String Name, Address, Gender, Email,PhoneNumber;
@@ -55,41 +57,25 @@ public abstract   class Person
         Email = email;
     }
 
-    // public String getPhoneNumber() {
-    //     return PhoneNumber;
-    // }
+    public String getPhoneNumber() {
+        return PhoneNumber;
+    }
 
-    // public void setPhoneNumber(String phoneNumber) {
-    //     PhoneNumber = phoneNumber;
-    // }
-    // public void Register() throws ParseException
+    public void setPhoneNumber(String phoneNumber) {
+        PhoneNumber = phoneNumber;
+    }
 
-    // {
-    //     Scanner scanner =new Scanner(System.in);
-    //     System.out.println("Enter your ID: ");
-    //     int id = scanner.nextInt();
-    //     scanner.nextLine();
+   public    Person  Login(String Email,String Password)
+   {
+          return null;
+   }
 
-    //     System.out.println("Enter your name: ");
-    //     String name = scanner.nextLine();
 
-    //     System.out.println("Enter your address: ");
-    //     String address = scanner.nextLine();
+   public  Person Register() throws ParseException
+   {
+        return null;
 
-    //     System.out.println("Enter your gender: ");
-    //     String gender = scanner.nextLine();
+   }
 
-    //     System.out.println("Enter your phone number: ");
-    //     String phoneNumber = scanner.nextLine();
-        
-    //     System.out.println("Enter your email: ");
-    //     String email = scanner.nextLine();
-        
-    //     System.out.println("Enter your password: ");
-    //     String customerPassword = scanner.nextLine();
-    //     scanner.close();
-
-    // }
-    
 
 }

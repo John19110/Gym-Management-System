@@ -1,9 +1,10 @@
 package Mygym;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Membership {
+public class Membership implements Serializable {
 
     private Date startDate;
     private Date endDate;
@@ -19,7 +20,14 @@ public class Membership {
         this.price = price;
     }
 
-    
+
+
+    public Membership(Date startDate2, Date endDate2, String monthlyPlan2, String membershipPlanDuration,
+            int numMonthsRegistered2, int price2) {
+    }
+
+
+
     public Date getStartDate() {
         return startDate;
     }

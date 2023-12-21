@@ -1,5 +1,6 @@
 package Mygym;
 
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -21,21 +22,24 @@ public class InBody extends Person {
         this.totalBodyWater = totalBodyWater;
         this.protein = protein;
     }
+   
     public int getID() 
     {
             return ID;
     }
     
-    
+  
     public void setID(int iD) {
       
         ID=iD;
     }
     
+
     public String getPhoneNumber() {
 
             return PhoneNumber;
     }
+    
     
     public void SetPhoneNumber(String phoneNumber)
      {
@@ -43,37 +47,44 @@ public class InBody extends Person {
         PhoneNumber=phoneNumber;
     }
     
+
     public String getName() 
     {
         
         return Name;
     }
     
+
     public void setName(String name) 
     {
     Name=name;  
 
     }
     
+ 
     public String getAddress() 
     {
         return Address;    
     }
     
+
     public void setAddress(String address) {
         
         Address=address;
     }
     
+  
     public String getGender() {
        
         return Gender;
     }
     
+   
     public void setGender(String gender) 
     {
         Gender=gender;
     }
+    
     
     public String getEmail() {
         return Email;

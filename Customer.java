@@ -18,6 +18,7 @@ public class Customer extends Person
     private Coach assignedCoach;
     private Membership membership;
     private String password;
+   
 
   
     public Customer(int iD, String name, String address, String gender, String email, String phoneNumber,
@@ -143,6 +144,18 @@ public class Customer extends Person
         this.password = password;
     }
 
+    public static void removeCustomerByName(String customerName) {
+        for (int i = 0; i < Gym.getCustomers().size(); i++) {
+            Customer customer = Gym.getCustomers().get(i);
+            if (customer.getName().equals(customerName)) {
+                Gym.getCustomers().remove(i);
+                System.out.println("Customer removed successfully.");
+                return;
+            }
+        }
+        System.out.println("Customer not found with name: " + customerName);
+    }
+
 
     
     public void displayCoahInfo()
@@ -203,7 +216,7 @@ public class Customer extends Person
              }
 
             }
-            scanner.close();
+
         }
     public void DisplayHowManyKilosNeededToReduce()
     { 
@@ -220,6 +233,7 @@ public class Customer extends Person
     }
   
 
+    @Override
 public Customer Register() throws ParseException
 {
 
@@ -280,7 +294,7 @@ public Customer Register() throws ParseException
         for(Coach coach:Gym.getCoaches())
         
         {
-            if ( coach.getID()==coachid)
+            if (coach.getID()==coachid)
             {
                 assignedCoach=coach;
                 
@@ -296,6 +310,7 @@ public Customer Register() throws ParseException
         }
     }
         while (assignedCoach==null);
+        
 
                             System.out.println("Enter your start Date: ");
                             String dateString = scanner.next();
@@ -341,7 +356,7 @@ public Customer Register() throws ParseException
 
 
                             System.out.println(" Enter number of monthes : ");
-                            int numberofmonthes =Integer.parseInt(scanner.nextLine());
+                            int numberofmonthes = scanner.nextInt();
 
 
                             System.out.println("Enter today's  Date: ");
@@ -363,18 +378,13 @@ public Customer Register() throws ParseException
                             assignedCoach.getCoacheCustomers().add(newCustomer);
                             System.out.println("Registeration Succeeded!");
                             System.out.println("Approved !");
-
-
-
-
-                            
-                            scanner.close();   
+   
                             return newCustomer;
 }
 
     
-    
-    public   static Customer  LoginCustomer(String email, String password)
+        @Override
+    public    Customer  Login(String email, String password)
      {
         for (Customer customer :Gym.getCustomers()) 
         {
@@ -385,7 +395,7 @@ public Customer Register() throws ParseException
         return null; // Login failed
     }
 
-  
+  @Override
     public String toString() {
 
 return "Customer ID: " + getID() +

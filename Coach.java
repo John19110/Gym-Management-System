@@ -19,6 +19,12 @@ class Coach extends Person
         this.password = password;
         CoacheCustomers = coacheCustomers;
     }
+      public Coach(int iD, String name, String address, String gender, String email, String phoneNumber, int workingHours,
+            String password) {
+
+                super(iD, name, address, gender, email, phoneNumber);
+                this.CoacheCustomers = new ArrayList();
+            }
 
 
     public int getWorkingHours() {
@@ -112,7 +118,7 @@ class Coach extends Person
     }
     
     public void ListAllCustomers(int CoachId) {
-            System.out.println("Coach " + this.getName() + "Has customers : ");
+            System.out.println("Coach " + this.getName() + " Has customers : ");
             for (Customer customer : Gym.getCustomers()) {
                         if(CoachId==customer.getAssignedCoach().getID())
                         {
@@ -165,22 +171,17 @@ class Coach extends Person
 
     public void getCustomersByGender(String targetGender) 
     {
-        ArrayList<Customer> result = new ArrayList<>();
         for (Customer customer : CoacheCustomers) {
-            if (customer.getGender().equalsIgnoreCase(targetGender))
-             {
-                result.add(customer);
-            }
+            if(customer.getGender().equalsIgnoreCase(targetGender)){
 
+                System.out.println("Customer name: "+customer.getName());
         }
-            for(Customer customer : result)
-            {
-                System.out.println("Customer name"+customer.getName());
-            }
-
-
     }
-    public Coach  register()
+
+     }
+
+     @Override
+    public   Coach  Register() 
 {
 
     Scanner scanner =new Scanner(System.in);
@@ -233,14 +234,16 @@ class Coach extends Person
     int  workinghours = scanner.nextInt();
     if   (workinghours>10||workinghours<=0);
     {
-        do {
+        while(workinghours>10||workinghours<=0){
 
             System.out.println("enter valid number");
             workinghours = scanner.nextInt();
         }
-        while(workinghours>10||workinghours<=0);
+       
       
     }
+
+
 
     ArrayList<Customer>coachCustomerswhenRegisterd=new ArrayList<>();
 
@@ -248,12 +251,25 @@ class Coach extends Person
      workinghours, CoachPassword, coachCustomerswhenRegisterd);
 
         Gym.getCoaches().add(coach);
-        System.out.println("Registeration successful !");
-        scanner.close();   
+        System.out.println("Registeration successful !"); 
     return coach;
 }
+ public static void removeCoachByName(String Coahname) 
+    {
+        for (int i = 0; i < Gym.getCoaches().size(); i++) 
+        {
+               Coach coach = Gym.getCoaches().get(i);
+            if (coach.getName().equals(Coahname)) 
+            {
+                Gym.getCoaches().remove(i);
+                return;
+            }
+        }
+        System.out.println("Coach not found with name: " + Coahname);
+    }
 
-public static  Coach LoginCoach(String email, String password) {
+    @Override
+public   Coach Login(String email, String password) {
 for (Coach coach :Gym.getCoaches()) 
 {
 if (coach.getEmail().equals(email) && coach.getPassword().equals(password)) {
