@@ -254,19 +254,7 @@ class Coach extends Person
         System.out.println("Registeration successful !"); 
     return coach;
 }
- public static void removeCoachByName(String Coahname) 
-    {
-        for (int i = 0; i < Gym.getCoaches().size(); i++) 
-        {
-               Coach coach = Gym.getCoaches().get(i);
-            if (coach.getName().equals(Coahname)) 
-            {
-                Gym.getCoaches().remove(i);
-                return;
-            }
-        }
-        System.out.println("Coach not found with name: " + Coahname);
-    }
+
 
     @Override
 public   Coach Login(String email, String password) {

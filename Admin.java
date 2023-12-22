@@ -31,8 +31,8 @@ public class Admin implements Serializable
     {
         Gym.getCustomers().add(customer);
     }
-    public void removeCustomer(String customerName) {
-        Customer.removeCustomerByName(customerName);
+    public void removeCustomer(Customer customer) {
+        Gym.getCustomers().remove(customer);
     }
 
     public void addCoach(Coach coach) 
@@ -49,8 +49,8 @@ public class Admin implements Serializable
     {
         Gym.getEquipments().remove(equipment);
     }
-        public void removeCoach(String coachName) {
-        Coach.removeCoachByName(coachName);
+        public void removeCoach(Coach coach) {
+        Gym.getCoaches().remove(coach);
     }
 
                 //Edit Customer Functions

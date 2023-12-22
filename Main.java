@@ -308,7 +308,7 @@ public class Main
                                              if(Id==customer.getID())
                                              {
      
-                                                 gymAdmin.removeCustomer(customer.getName());
+                                                 gymAdmin.removeCustomer(customer);
                                                  System.out.println("Customer removed !");
 
                                                  break;
@@ -346,7 +346,7 @@ public class Main
                                              if(Id==coach.getID())
                                              {
      
-                                                 gymAdmin.removeCoach(coach.getName());
+                                                 gymAdmin.removeCoach(coach);
                                                  System.out.println("Coach removed !");
 
                                                  break;

@@ -144,17 +144,6 @@ public class Customer extends Person
         this.password = password;
     }
 
-    public static void removeCustomerByName(String customerName) {
-        for (int i = 0; i < Gym.getCustomers().size(); i++) {
-            Customer customer = Gym.getCustomers().get(i);
-            if (customer.getName().equals(customerName)) {
-                Gym.getCustomers().remove(i);
-                System.out.println("Customer removed successfully.");
-                return;
-            }
-        }
-        System.out.println("Customer not found with name: " + customerName);
-    }
 
 
     
